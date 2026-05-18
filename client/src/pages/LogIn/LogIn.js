@@ -271,7 +271,7 @@ function LogIn() {
 
                 <div style={{ paddingLeft: '5px' }}>
                   <a href="#register" className="signup-image-link" onClick={e => { e.preventDefault(); setIsSignUp(true); }} style={{ position: 'static', margin: '0', display: 'inline-block' }}>
-                    Chưa có tài khoản ? Đăng ký
+                    Chưa có tài khoản? Đăng ký
                   </a>
                 </div>
               </form>
