@@ -1,0 +1,14 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/payment.controller.js");
+const checkApiKey = require("../middlewares/checkAIPkey.js");
+router.get("/api/v1/payments", controller.index);
+router.get("/api/v1/detail", controller.getDetail);
+router.post("/api/v1/post",checkApiKey,controller.addPayment);
+router.post("/api/v1/change",controller.changePayment);
+router.post("/api/v1/changes",controller.changePayments);
+router.post("/api/v1/delete",checkApiKey,controller.deletePayment);
+router.get("/api/v1/totalPayment",controller.totalPayment);
+router.get("/api/v1/history",controller.getHistory);
+router.get("/api/v1/feeTypeStats",controller.getFeeTypeStats);
+module.exports = router;
