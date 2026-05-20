@@ -28,6 +28,8 @@
 
   &--navigation {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 300px;
     height: 100%;
     background: var(--blue);
@@ -44,6 +46,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
   }
 
   &--navigation ul li {
@@ -52,6 +55,20 @@
     list-style: none;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
+
+    &.sidebar-logout-item {
+      position: absolute;
+      bottom: 25px; 
+      width: 100%;
+      margin-top: 15px;
+      padding-top: 0px; 
+      
+      border-top: 1px solid rgba(255, 255, 255, 0.15); 
+      
+      &:hover {
+        border-top-color: transparent;
+      }
+    }
   }
 
   &--navigation ul li:hover,
@@ -59,37 +76,132 @@
     background-color: var(--white);
   }
 
-  &--navigation ul li:nth-child(1) {
+  &--navigation ul li.sidebar-brand {
+    margin-top: 0 !important;
     margin-bottom: 40px;
-    pointer-events: none;
+    pointer-events: auto; 
+
+    .brand-container {
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      width: 100%;
+      height: 60px;
+      color: var(--white);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .icon {
+      position: relative;
+      min-width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.75rem;
+
+      
+
+      .icon-building, .icon-menu {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease;
+      }
+      
+      .icon-building {
+        opacity: 1;
+      }
+      
+      .icon-menu {
+        opacity: 0; 
+        pointer-events: none; 
+        cursor: pointer;
+      }
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      white-space: nowrap;
+      padding-left: 10px;
+
+      cursor: default;
+    }
+
+    .brand-right {
+      display: flex;
+      align-items: center;
+      padding-right: 20px;
+      font-size: 1.8rem;
+
+      cursor: pointer;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
   }
 
-  &--navigation ul li a {
+  &--navigation.active ul li.sidebar-brand {
+    .title, .brand-right {
+      display: none; 
+    }
+
+    &:hover {
+      .icon-building {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .icon-menu {
+        opacity: 1; 
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &--navigation ul li a,
+  &--navigation ul li button { 
     position: relative;
-    display: block;
-    width: 100%;
     display: flex;
+    width: 100%;
     text-decoration: none;
     color: var(--white);
+    background: none; 
+    border: none;    
+    cursor: pointer;
+    font-size: 1rem;
   }
+  
   &--navigation ul li:hover a,
-  &--navigation ul li.hovered a {
+  &--navigation ul li.hovered a,
+  &--navigation ul li:hover button,
+  &--navigation ul li.hovered button {
     color: var(--blue);
   }
   
-  &--navigation ul li a .icon {
+  &--navigation ul li a .icon,
+  &--navigation ul li button .icon {
     position: relative;
     display: block;
     min-width: 60px;
     height: 60px;
-    line-height: 75px;
+    line-height: 65px;
     text-align: center;
   }
-  &--navigation ul li a .icon ion-icon {
+  
+  &--navigation ul li a .icon ion-icon,
+  &--navigation ul li button .icon ion-icon {
     font-size: 1.75rem;
   }
   
-  &--navigation ul li a .title {
+  &--navigation ul li a .title,
+  &--navigation ul li button .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -99,10 +211,10 @@
     white-space: nowrap;
   }
 
-
-  /* --------- curve outside ---------- */
   &--navigation ul li:hover a::before,
-  &--navigation ul li.hovered a::before {
+  &--navigation ul li.hovered a::before,
+  &--navigation ul li:hover button::before,
+  &--navigation ul li.hovered button::before {
     content: "";
     position: absolute;
     right: 0;
@@ -114,8 +226,11 @@
     box-shadow: 35px 35px 0 10px var(--white);
     pointer-events: none;
   }
+
   &--navigation ul li:hover a::after,
-  &--navigation ul li.hovered a::after {
+  &--navigation ul li.hovered a::after,
+  &--navigation ul li:hover button::after,
+  &--navigation ul li.hovered button::after {
     content: "";
     position: absolute;
     right: 0;
