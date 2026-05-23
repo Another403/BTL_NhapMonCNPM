@@ -30,7 +30,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 300px;
+    width: 260px;
     height: 100%;
     background: var(--blue);
     border-left: 10px solid var(--blue);
@@ -38,7 +38,7 @@
     overflow: hidden;
   }
   &--navigation.active {
-    width: 80px;
+    width: 68px;
   }
 
   &--navigation ul {
@@ -58,7 +58,7 @@
 
     &.sidebar-logout-item {
       position: absolute;
-      bottom: 25px; 
+      bottom: 0; 
       width: 100%;
       margin-top: 15px;
       padding-top: 0px; 
@@ -78,7 +78,7 @@
 
   &--navigation ul li.sidebar-brand {
     margin-top: 0 !important;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
     pointer-events: auto; 
 
     .brand-container {
@@ -109,7 +109,7 @@
       .icon-building, .icon-menu {
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 40%;
         transform: translate(-50%, -50%);
         transition: opacity 0.3s ease;
       }
@@ -129,7 +129,7 @@
       font-size: 1.25rem;
       font-weight: 600;
       white-space: nowrap;
-      padding-left: 10px;
+      padding-left: 0px;
 
       cursor: default;
     }
@@ -175,7 +175,7 @@
     background: none; 
     border: none;    
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
   
   &--navigation ul li:hover a,
@@ -189,15 +189,15 @@
   &--navigation ul li button .icon {
     position: relative;
     display: block;
-    min-width: 60px;
-    height: 60px;
-    line-height: 65px;
+    min-width: 50px;
+    height: 48px;
+    line-height: 52px;
     text-align: center;
   }
   
   &--navigation ul li a .icon ion-icon,
   &--navigation ul li button .icon ion-icon {
-    font-size: 1.75rem;
+    font-size: 1.4rem;
   }
   
   &--navigation ul li a .title,
@@ -205,8 +205,8 @@
     position: relative;
     display: block;
     padding: 0 10px;
-    height: 60px;
-    line-height: 60px;
+    height: 48px;
+    line-height: 48px;
     text-align: start;
     white-space: nowrap;
   }
@@ -246,16 +246,16 @@
 
 .layout-default__main{
   position: absolute;
-  width: calc(100% - 300px);
+  width: calc(100% - 280px);
   top: 0;
-  left: 300px;
+  left: 260px;
   min-height: 100vh;
   background: var(--white);
   transition: 0.5s;
 
   &.active{
-    width: calc(100% - 80px);
-    left: 80px;
+    width: calc(100% - 68px);
+    left: 68px;
   }
 
   &--topbar{
