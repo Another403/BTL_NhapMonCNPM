@@ -58,8 +58,8 @@
 
 .details .recentCt {
   position: relative;
-  display: grid;
-  grid-template-rows: 10% 10% auto;
+  display: flex;
+  flex-direction: column;
   min-height: max-content;
   background: var(--white);
   padding: 20px;
@@ -313,4 +313,23 @@ label{
 }
 :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper table tr th.ant-table-selection-column, :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper table tr td.ant-table-selection-column, :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper .ant-table-selection-column {
   padding-top: 40px;
+}
+.recentCt ul.ant-pagination {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 0px !important;
+    padding-bottom: 20px !important;
+    transform: none !important;
+    clear: both !important;
+}
+
+.recentCt ul.ant-pagination li {
+    position: relative !important;
+    display: inline-block !important;
+    margin: 0 4px !important;
+    width: auto !important;
+    border-radius: 4px !important;
 }
