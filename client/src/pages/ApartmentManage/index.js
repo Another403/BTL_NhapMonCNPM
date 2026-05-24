@@ -3,7 +3,7 @@ import { Form, Select, Row, Col, Modal, Input, InputNumber, notification, Tag, B
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import "../DashBoard/style.css";
+import "../ResidentManage/style.css";
 
 const BASE = "http://localhost:8386";
 

@@ -1,4 +1,4 @@
-import "./style.css"
+import "../ResidentManage/style.css"
 import customer01 from "../Layout/assets/imgs/customer01.jpg"
 import { Link } from "react-router-dom"
 import React, { useEffect, useState } from "react"

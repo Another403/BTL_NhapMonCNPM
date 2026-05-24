@@ -72,7 +72,8 @@
   }
 
   &--navigation ul li:hover,
-  &--navigation ul li.hovered {
+  &--navigation ul li.hovered,
+  &--navigation ul li.active {
     background-color: var(--white);
   }
 
@@ -181,10 +182,17 @@
   &--navigation ul li:hover a,
   &--navigation ul li.hovered a,
   &--navigation ul li:hover button,
-  &--navigation ul li.hovered button {
+  &--navigation ul li.hovered button,
+  &--navigation ul li.active a,      
+  &--navigation ul li.active button {
     color: var(--blue);
   }
   
+  &--navigation ul li.active a .title,
+  &--navigation ul li.active button .title {
+    font-weight: 700; 
+  }
+
   &--navigation ul li a .icon,
   &--navigation ul li button .icon {
     position: relative;
@@ -214,7 +222,9 @@
   &--navigation ul li:hover a::before,
   &--navigation ul li.hovered a::before,
   &--navigation ul li:hover button::before,
-  &--navigation ul li.hovered button::before {
+  &--navigation ul li.hovered button::before,
+  &--navigation ul li.active a::before,       
+  &--navigation ul li.active button::before {
     content: "";
     position: absolute;
     right: 0;
@@ -230,7 +240,9 @@
   &--navigation ul li:hover a::after,
   &--navigation ul li.hovered a::after,
   &--navigation ul li:hover button::after,
-  &--navigation ul li.hovered button::after {
+  &--navigation ul li.hovered button::after,
+  &--navigation ul li.active a::after,       
+  &--navigation ul li.active button::after {
     content: "";
     position: absolute;
     right: 0;
@@ -242,6 +254,7 @@
     box-shadow: 35px -35px 0 10px var(--white);
     pointer-events: none;
   }
+  
 }
 
 .layout-default__main{
