@@ -1,137 +1,185 @@
-import "./asset/css/material-design-iconic-font.min.css"
-import "./asset/css/style.css"
+import "./asset/css/style.css";
 import { useState } from "react";
-import { FcOk } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changePassword } from "../../actions";
 import { message } from "antd";
+import { 
+  LockOutlined, 
+  EyeOutlined, 
+  EyeInvisibleOutlined, 
+  SafetyCertificateOutlined, 
+  CheckCircleFilled 
+} from "@ant-design/icons";
 
-function Password(){
-  const [oldPassword, setOldPassword] = useState("");
+function Password() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleOldPassword = (e) => {
-    e.preventDefault();
-    setOldPassword(e.target.value);
-  }
+  // State lưu giá trị input
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  //Process new password;
-  const minLength = /.{8,}/; 
+  // State ẩn/hiện mật khẩu
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  // Biểu thức Regex kiểm tra mật khẩu
+  const minLength = /.{8,}/;
   const hasUpperCase = /[A-Z]/;
-  const hasLowerCase = /[a-z]/; 
+  const hasLowerCase = /[a-z]/;
   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
   const hasNumber = /\d/;
 
+  // State đánh giá tiêu chí
   const [isMinLengthValid, setMinLengthValid] = useState(false);
   const [isHasUpperCase, setIsHasUpperCase] = useState(false);
   const [isHasLowerCase, setIsHasLowerCase] = useState(false);
   const [isHasSpecialChar, setIsHasSpecialChar] = useState(false);
   const [isHasNumber, setIsHasNumber] = useState(false);
-
-  const [newPassword, setNewPassword] = useState("");
   const [isNewValid, setIsNewValid] = useState(false);
-  const [checkClass, setCheckClass] = useState(false);
 
-  const validateNewPassword = (password) => {
-    setMinLengthValid(minLength.test(password));
-    setIsHasUpperCase(hasUpperCase.test(password));
-    setIsHasLowerCase(hasLowerCase.test(password));
-    setIsHasSpecialChar(hasSpecialChar.test(password));
-    setIsHasNumber(hasNumber.test(password));
-
-    return minLength.test(password) &&
-    hasUpperCase.test(password) &&
-    hasLowerCase.test(password) &&
-    hasSpecialChar.test(password) &&
-    hasNumber.test(password);
-  }
-  
+  // Xử lý thay đổi mật khẩu mới
   const handleNewPassword = (e) => {
-    e.preventDefault();
     const value = e.target.value;
     setNewPassword(value);
-    setIsNewValid(validateNewPassword(value));
-    setCheckClass(validateNewPassword(value) ? "correct" : "incorrect");
-  }
+    
+    // Đánh giá từng tiêu chí
+    setMinLengthValid(minLength.test(value));
+    setIsHasUpperCase(hasUpperCase.test(value));
+    setIsHasLowerCase(hasLowerCase.test(value));
+    setIsHasSpecialChar(hasSpecialChar.test(value));
+    setIsHasNumber(hasNumber.test(value));
 
-  //Process Confirmed Password
-  const [check, setCheck] = useState(false);
-
-  const handleConfirmedPassword = (e) => {
-    e.preventDefault();
-    const value = e.target.value;
-    if (value === newPassword){
-      setCheck(true);
-    }
-    console.log(value);
-  }
-
-  const dispatch = useDispatch();
+    // Đánh giá tổng thể
+    setIsNewValid(
+      minLength.test(value) &&
+      hasUpperCase.test(value) &&
+      hasLowerCase.test(value) &&
+      hasSpecialChar.test(value) &&
+      hasNumber.test(value)
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isNewValid) {
-      message.error("Mật khẩu mới không hợp lệ. Vui lòng kiểm tra lại yêu cầu.");
+      message.error("Mật khẩu mới không hợp lệ. Vui lòng kiểm tra lại yêu cầu an toàn.");
       return;
     }
-    if (!check) {
+    if (newPassword !== confirmPassword) {
       message.error("Mật khẩu xác nhận không khớp.");
       return;
     }
     dispatch(changePassword(oldPassword, newPassword, navigate));
   };
 
-  return(
-    <>
-      <div className="password-main">
-        <section className="change-password">
-          <div className="password-container">
-            <div className="password-content">
-              <div className="password-form">
-                  <h2 className="password-form-title">Đổi mật khẩu</h2>
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <div className="password-input-field old-password">
-                          <label htmlFor="old-password">Mật khẩu cũ</label>
-                          <input type="password" name="old-password" id="old-password" placeholder="Mật khẩu cũ" onChange={handleOldPassword}/>
-                        </div>
-                        <div className="password-input-field">
-                          <label htmlFor="new-password">Mật khẩu mới</label>
-                          {
-                            isNewValid && <FcOk/>
-                          }
-                          <input type="password" name="new-password" id="new-password" placeholder="Mật khẩu mới" onChange={handleNewPassword} className={`${checkClass}`}/>
-                        </div> 
-                        <div className="password-require">
-                          <h5>Yêu cầu</h5>
-                          <ul>
-                            <li className={isMinLengthValid ? "valid" : "invalid"}>Có ít nhất 8 kí tự</li>
-                            <li className={isHasUpperCase ? "valid" : "invalid"}>Có ít nhất 1 kí tự viết hoa</li>
-                            <li className={isHasLowerCase ? "valid" : "invalid"}>Có ít nhất 1 kí tự viết thường</li>
-                            <li className={isHasSpecialChar ? "valid" : "invalid"}>Có ít nhất 1 kí tự đặc biệt</li>
-                            <li className={isHasNumber ? "valid" : "invalid"}>Có số</li>
-                          </ul>
-                        </div>
-                        <div className="password-input-field">
-                          <label htmlFor="confirm-password">Xác nhận mật khẩu</label>
-                          {
-                            check && <FcOk/>
-                          }
-                          <input type="password" name="confirm-password" id="confirm-password" placeholder="Xác nhận mật khẩu" onChange={handleConfirmedPassword} className={check ? "correct" : "incorrect"}/>
-                        </div> 
-                        <div className="form-group form-button">
-                            <input type="submit" name="change-password" id="change-password" className="form-submit" value="Đổi mật khẩu"/>
-                        </div>
-                      </div>
-                    </form>
-              </div>
+  return (
+    <div className="password-main">
+      <section className="change-password">
+        <div className="password-container">
+          <div className="password-content">
+            <div className="password-form-wrapper">
+              <h2 className="password-form-title">Thiết lập mật khẩu mới</h2>
+              <form onSubmit={handleSubmit} className="custom-password-form">
+                
+                {/* Mật khẩu hiện tại */}
+                <div className="input-group">
+                  <label>MẬT KHẨU HIỆN TẠI</label>
+                  <div className="input-wrapper">
+                    <LockOutlined className="icon-left" />
+                    <input
+                      type={showOld ? "text" : "password"}
+                      placeholder="Nhập mật khẩu cũ"
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                    />
+                    <span className="icon-right" onClick={() => setShowOld(!showOld)}>
+                      {showOld ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Mật khẩu mới */}
+                <div className="input-group">
+                  <label>MẬT KHẨU MỚI</label>
+                  <div className={`input-wrapper ${newPassword && (isNewValid ? "valid" : "invalid")}`}>
+                    <LockOutlined className="icon-left" />
+                    <input
+                      type={showNew ? "text" : "password"}
+                      placeholder="Nhập mật khẩu mới"
+                      value={newPassword}
+                      onChange={handleNewPassword}
+                    />
+                    <span className="icon-right" onClick={() => setShowNew(!showNew)}>
+                      {showNew ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Xác nhận mật khẩu mới */}
+                <div className="input-group">
+                  <label>XÁC NHẬN MẬT KHẨU MỚI</label>
+                  <div className={`input-wrapper ${confirmPassword && (confirmPassword === newPassword ? "valid" : "invalid")}`}>
+                    <LockOutlined className="icon-left" />
+                    <input
+                      type={showConfirm ? "text" : "password"}
+                      placeholder="Nhập lại mật khẩu mới"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    <span className="icon-right" onClick={() => setShowConfirm(!showConfirm)}>
+                      {showConfirm ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Khối yêu cầu an toàn */}
+                <div className="requirements-box">
+                  <div className="req-header">
+                    <SafetyCertificateOutlined className="req-icon" />
+                    <span>YÊU CẦU AN TOÀN</span>
+                  </div>
+                  <p className="req-desc">Để bảo vệ tài khoản, mật khẩu của bạn cần đáp ứng các tiêu chí sau:</p>
+                  <ul className="req-list">
+                    <li className={isMinLengthValid ? "req-met" : ""}>
+                      {isMinLengthValid ? <CheckCircleFilled className="check-icon" /> : <div className="empty-circle"></div>}
+                      Có ít nhất <strong>8 ký tự</strong>
+                    </li>
+                    <li className={isHasUpperCase ? "req-met" : ""}>
+                      {isHasUpperCase ? <CheckCircleFilled className="check-icon" /> : <div className="empty-circle"></div>}
+                      Chứa ít nhất <strong>1 chữ in hoa</strong> (A-Z)
+                    </li>
+                    <li className={isHasLowerCase ? "req-met" : ""}>
+                      {isHasLowerCase ? <CheckCircleFilled className="check-icon" /> : <div className="empty-circle"></div>}
+                      Chứa ít nhất <strong>1 chữ in thường</strong> (a-z)
+                    </li>
+                    <li className={isHasNumber ? "req-met" : ""}>
+                      {isHasNumber ? <CheckCircleFilled className="check-icon" /> : <div className="empty-circle"></div>}
+                      Chứa ít nhất <strong>1 số</strong> (0-9)
+                    </li>
+                    <li className={isHasSpecialChar ? "req-met" : ""}>
+                      {isHasSpecialChar ? <CheckCircleFilled className="check-icon" /> : <div className="empty-circle"></div>}
+                      Chứa ít nhất <strong>1 ký tự đặc biệt</strong> (!@#$%^&*)
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Nút thao tác */}
+                <div className="action-buttons">
+                  <button type="button" className="btn-cancel" onClick={() => navigate(-1)}>Hủy bỏ</button>
+                  <button type="submit" className="btn-submit">Cập nhật mật khẩu</button>
+                </div>
+
+              </form>
             </div>
           </div>
-        </section>
-      </div>
-    </>
-  )
+        </div>
+      </section>
+    </div>
+  );
 }
 
 export default Password;

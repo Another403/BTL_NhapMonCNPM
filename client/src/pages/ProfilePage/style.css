@@ -40,7 +40,7 @@
 /* Dải màu xanh phía trên */
 .profile-cover {
   height: 120px;
-  background: linear-gradient(135deg, #5b6df6 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #2a2185 0%, #3b82f6 100%);
 }
 
 .profile-avatar-section {
@@ -148,7 +148,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: #5b6df6;
+  background: #2a2185;
 }
 
 /* Nút Chỉnh sửa / Lưu */
@@ -184,14 +184,14 @@
   background: #f8fafc;
 }
 .btn-save {
-  background: #5b6df6;
+  background: #2a2185;
   color: var(--white);
   border: none;
   padding: 8px 20px;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(91, 109, 246, 0.2);
+  box-shadow: 0 4px 10px rgba(42, 33, 133, 0.2);
 }
 
 /* =======================================
@@ -260,6 +260,6 @@
 .profile-group .ant-input:focus,
 .profile-group .ant-picker-focused {
   background: var(--white);
-  border-color: #5b6df6;
-  box-shadow: 0 0 0 2px rgba(91, 109, 246, 0.1);
+  border-color: #2a2185;
+  box-shadow: 0 0 0 2px rgba(42, 33, 133, 0.1);
 }
