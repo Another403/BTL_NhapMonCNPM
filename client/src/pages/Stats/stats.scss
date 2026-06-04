@@ -43,9 +43,11 @@
   display: grid;
   width: 96%;
   gap: 1.8rem;
-  grid-template-columns: 75% 25%;
+  
+  grid-template-columns: 2fr 1fr; 
+  
   margin: 0 auto;
-  align-items: start;
+  align-items: stretch;
   //max-height: 45vh;
 
   h2{
@@ -221,7 +223,7 @@ main .insights .progress .number{
 
 main .recent_order{
    margin-top: 2rem;
-   width: 96%;
+   width: 100%;
 }
 
 main .recent_order h2{
@@ -269,6 +271,8 @@ Right Side
 
 .right{
   margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
 }
 .right h2{
   color: var(--blue);
@@ -283,6 +287,10 @@ Right Side
   box-shadow: var(--box-shadow);
   transition: all .3s ease;
   overflow-y: auto;
+  flex-grow: 1;
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
   //max-height: 71%;
 
   h2{
@@ -293,13 +301,13 @@ Right Side
 .right .recent_updates::-webkit-scrollbar {
   display: none; /* Ẩn thanh cuộn */
 }
-.right .recent_updates .updates{
-  background-color: var(--clr-white);
-  padding: var(--card-padding);
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
+.right .recent_updates .updates {
   transition: all .3s ease;
   overflow: visible;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .right .recent_updates:hover{
   box-shadow: none;
