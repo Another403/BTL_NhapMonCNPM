@@ -80,3 +80,26 @@ hr {
   border-top: 0.25px solid #000; /* Đặt màu đen và độ dày 3px */
   margin: 20px 0; /* Khoảng cách trên và dưới */
 }
+@media (max-width: 1024px) {
+  form .fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .details .recentCt.page2 {
+    width: 100%;
+    margin-left: 0;
+    padding: 15px;
+  }
+  form .fields {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  form .fields {
+    grid-template-columns: 1fr;
+  }
+}

@@ -181,3 +181,25 @@ table td{
 hr{
   border-top: 0.25px solid #0000002b;
 }
+@media (max-width: 768px) {
+  .details__fee .recentCt {
+    overflow-x: auto !important;
+    padding: 12px 8px !important;
+  }
+  .details__fee table {
+    min-width: 480px !important;
+    white-space: nowrap !important;
+  }
+  .details__fee .cardHeader {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .ant-modal-content {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .filter_fee {
+    height: auto !important;
+  }
+}

@@ -344,58 +344,52 @@ MEDIA QUERY
 MEDIA QUERY PHONE
 ************************/
 
-@media screen and (max-width:768px) {
-  .container__header{
-    width: 100%;
-    grid-template-columns: repeat(1,1fr);
+@media (max-width: 768px) {
+  main {
+    padding: 0 6px !important;
+    overflow-x: hidden !important;
+    margin-top: 0.5rem !important;
   }
 
-  .container__body{
-    width: 100%;
-    grid-template-columns: repeat(1,1fr);
-  
-  }
-  
-  @keyframes menuLeft {
-      to{
-        left: 0;
-      }
+  .container__header {
+    width: 100% !important;
+    grid-template-columns: 1fr !important;
+    padding: 0 6px !important;
+    gap: 1rem !important;
   }
 
-    .right .top{
-       position: fixed;
-       top: 0;
-       left: 0;
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       padding: 0 0.8rem;
-       background: var(--clr-white);
-       height: 4.6rem;
-       width: 100%;
-       z-index: 2;
-       box-shadow: 0 1rem 1rem var(--clr-light);
-       margin: 0;
-    }
+  .container__body {
+    width: 100% !important;
+    padding: 0 6px !important;
+  }
 
+  main .insights {
+    padding: 6px !important;
+    gap: 0.8rem !important;
+    grid-template-columns: 1fr !important;
+  }
 
- main .insights{
-  display: grid;
-  grid-template-columns: repeat(1,1fr);
-  gap: 1.6rem;
-  padding: 40px;
- }
- main .recent_order{
-  padding: 30px;
-  margin: 0 auto;
- }
+  main .insights > div {
+    padding: 1rem !important;
+    margin-top: 0.5rem !important;
+  }
 
-   .right .recent_order{
-    padding: 0 30px;
-   }
-   .right .recent_updates{
-    padding: 0 40px;
-   }
+  main .recent_order {
+    width: 100% !important;
+    padding: 6px !important;
+    margin: 0 !important;
+  }
 
+  main .recent_order table {
+    font-size: 12px !important;
+    padding: 1rem !important;
+  }
 
+  main .recent_order table thead td {
+    font-size: 11px !important;
+  }
+
+  .right .recent_updates {
+    padding: 0 6px !important;
+  }
 }

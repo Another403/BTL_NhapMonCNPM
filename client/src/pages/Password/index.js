@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { changePassword } from "../../actions";
 import { message } from "antd";
 
-function Password(){
+function Password() {
   const [oldPassword, setOldPassword] = useState("");
   const navigate = useNavigate();
 
@@ -16,10 +16,9 @@ function Password(){
     setOldPassword(e.target.value);
   }
 
-  //Process new password;
-  const minLength = /.{8,}/; 
+  const minLength = /.{8,}/;
   const hasUpperCase = /[A-Z]/;
-  const hasLowerCase = /[a-z]/; 
+  const hasLowerCase = /[a-z]/;
   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
   const hasNumber = /\d/;
 
@@ -41,12 +40,12 @@ function Password(){
     setIsHasNumber(hasNumber.test(password));
 
     return minLength.test(password) &&
-    hasUpperCase.test(password) &&
-    hasLowerCase.test(password) &&
-    hasSpecialChar.test(password) &&
-    hasNumber.test(password);
+      hasUpperCase.test(password) &&
+      hasLowerCase.test(password) &&
+      hasSpecialChar.test(password) &&
+      hasNumber.test(password);
   }
-  
+
   const handleNewPassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
@@ -55,13 +54,12 @@ function Password(){
     setCheckClass(validateNewPassword(value) ? "correct" : "incorrect");
   }
 
-  //Process Confirmed Password
   const [check, setCheck] = useState(false);
 
   const handleConfirmedPassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value === newPassword){
+    if (value === newPassword) {
       setCheck(true);
     }
     console.log(value);
@@ -82,49 +80,45 @@ function Password(){
     dispatch(changePassword(oldPassword, newPassword, navigate));
   };
 
-  return(
+  return (
     <>
       <div className="password-main">
         <section className="change-password">
           <div className="password-container">
             <div className="password-content">
               <div className="password-form">
-                  <h2 className="password-form-title">Đổi mật khẩu</h2>
-                    <form onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <div className="password-input-field old-password">
-                          <label htmlFor="old-password">Mật khẩu cũ</label>
-                          <input type="password" name="old-password" id="old-password" placeholder="Mật khẩu cũ" onChange={handleOldPassword}/>
-                        </div>
-                        <div className="password-input-field">
-                          <label htmlFor="new-password">Mật khẩu mới</label>
-                          {
-                            isNewValid && <FcOk/>
-                          }
-                          <input type="password" name="new-password" id="new-password" placeholder="Mật khẩu mới" onChange={handleNewPassword} className={`${checkClass}`}/>
-                        </div> 
-                        <div className="password-require">
-                          <h5>Yêu cầu</h5>
-                          <ul>
-                            <li className={isMinLengthValid ? "valid" : "invalid"}>Có ít nhất 8 kí tự</li>
-                            <li className={isHasUpperCase ? "valid" : "invalid"}>Có ít nhất 1 kí tự viết hoa</li>
-                            <li className={isHasLowerCase ? "valid" : "invalid"}>Có ít nhất 1 kí tự viết thường</li>
-                            <li className={isHasSpecialChar ? "valid" : "invalid"}>Có ít nhất 1 kí tự đặc biệt</li>
-                            <li className={isHasNumber ? "valid" : "invalid"}>Có số</li>
-                          </ul>
-                        </div>
-                        <div className="password-input-field">
-                          <label htmlFor="confirm-password">Xác nhận mật khẩu</label>
-                          {
-                            check && <FcOk/>
-                          }
-                          <input type="password" name="confirm-password" id="confirm-password" placeholder="Xác nhận mật khẩu" onChange={handleConfirmedPassword} className={check ? "correct" : "incorrect"}/>
-                        </div> 
-                        <div className="form-group form-button">
-                            <input type="submit" name="change-password" id="change-password" className="form-submit" value="Đổi mật khẩu"/>
-                        </div>
-                      </div>
-                    </form>
+                <h2 className="password-form-title">Đổi mật khẩu</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <div className="password-input-field old-password">
+                      <label htmlFor="old-password">Mật khẩu cũ</label>
+                      <input type="password" name="old-password" id="old-password" placeholder="Mật khẩu cũ" onChange={handleOldPassword} />
+                    </div>
+                    <div className="password-input-field">
+                      <label htmlFor="new-password">Mật khẩu mới</label>
+                      {isNewValid && <FcOk />}
+                      <input type="password" name="new-password" id="new-password" placeholder="Mật khẩu mới" onChange={handleNewPassword} className={`${checkClass}`} />
+                    </div>
+                    <div className="password-require">
+                      <h5>Yêu cầu</h5>
+                      <ul>
+                        <li className={isMinLengthValid ? "valid" : "invalid"}>Có ít nhất 8 kí tự</li>
+                        <li className={isHasUpperCase ? "valid" : "invalid"}>Có ít nhất 1 kí tự viết hoa</li>
+                        <li className={isHasLowerCase ? "valid" : "invalid"}>Có ít nhất 1 kí tự viết thường</li>
+                        <li className={isHasSpecialChar ? "valid" : "invalid"}>Có ít nhất 1 kí tự đặc biệt</li>
+                        <li className={isHasNumber ? "valid" : "invalid"}>Có số</li>
+                      </ul>
+                    </div>
+                    <div className="password-input-field">
+                      <label htmlFor="confirm-password">Xác nhận mật khẩu</label>
+                      {check && <FcOk />}
+                      <input type="password" name="confirm-password" id="confirm-password" placeholder="Xác nhận mật khẩu" onChange={handleConfirmedPassword} className={check ? "correct" : "incorrect"} />
+                    </div>
+                    <div className="form-group form-button">
+                      <input type="submit" name="change-password" id="change-password" className="form-submit" value="Đổi mật khẩu" />
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

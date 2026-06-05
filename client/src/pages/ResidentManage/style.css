@@ -333,3 +333,75 @@ label{
     width: auto !important;
     border-radius: 4px !important;
 }
+@media (max-width: 1024px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .details {
+    grid-template-columns: 1fr;
+  }
+  .details .recentCt.page2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 10px !important;
+    grid-gap: 10px !important;
+  }
+
+  .cardBox .card {
+    padding: 16px !important;
+  }
+
+  .cardBox .card .numbers {
+    font-size: 1.8rem !important;
+  }
+
+  .details {
+    grid-template-columns: 1fr !important;
+    padding: 10px !important;
+    grid-gap: 15px !important;
+  }
+
+  .details .recentCt {
+    overflow-x: auto !important;
+  }
+
+  .details table {
+    min-width: 420px !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+
+  .details .recentCt.page2 {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 15px !important;
+  }
+
+  .recentCustomers {
+    min-height: auto !important;
+  }
+
+  .description-container {
+    padding: 0 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .cardBox .card .numbers {
+    font-size: 1.5rem !important;
+  }
+
+  .cardBox .card .iconBx {
+    font-size: 2.5rem !important;
+  }
+}

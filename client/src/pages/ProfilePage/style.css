@@ -82,3 +82,11 @@ body{
 .card-body label{
   font-weight: 600;
 }
+@media (max-width: 768px) {
+  .gutters-sm {
+    grid-template-columns: 1fr;
+  }
+  .main-body {
+    padding: 8px;
+  }
+}

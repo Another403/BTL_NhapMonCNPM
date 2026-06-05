@@ -179,3 +179,21 @@ hr{
   border-top: 0.25px solid #0000002b;
 }
 
+@media (max-width: 768px) {
+  .details__vehicle .recentCt {
+    overflow-x: auto !important;
+    padding: 12px 8px !important;
+  }
+  .details__vehicle table {
+    min-width: 400px !important;
+    white-space: nowrap !important;
+  }
+  .details__vehicle .cardHeader {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .ant-modal-content {
+    width: 100% !important;
+  }
+}
