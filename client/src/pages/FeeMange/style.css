@@ -1,20 +1,25 @@
-.details__fee{
+/* =========================================
+   THIẾT LẬP LAYOUT & KHỐI THẺ (CARD)
+========================================= */
+.details__fee {
   position: relative;
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 24px;
+  background-color: #f6f6f9;
+  min-height: 100vh;
 }
 
 .details__fee .recentCt {
   position: relative;
   display: grid;
   min-height: 400px;
-  background: var(--white);
-  padding: 20px;
-  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  grid-template-rows: 100px 1fr;
+  background: #ffffff;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+  border-radius: 24px; 
+  grid-template-rows: auto 1fr;
   overflow: visible !important;
 }
 
@@ -22,147 +27,269 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 20px;
 }
 
-.details__fee .cardHeader .all-button{
+.details__fee .cardHeader .all-button {
   display: flex;
 }
 
-.details__fee .cardHeader .all-button > .btn{
+.details__fee .cardHeader .all-button > .btn {
   margin: 5px;
 }
 
+/* =========================================
+   BẢNG DỮ LIỆU (TABLE)
+========================================= */
 .details__fee table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   z-index: 1;
 }
+
+.details__fee table thead {
+  background-color: #f8f9fa;
+}
+
 .details__fee table thead td {
-  font-weight: 700;
+  font-weight: 600;
+  color: #495057;
+  padding: 14px 10px;
 }
+
 .details__fee .recentCt table tr {
-  color: var(--black1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #495057;
+  border-bottom: 1px solid #f1f3f5;
 }
-.details__fee .recentCt  table tr:last-child {
+
+.details__fee .recentCt table tr:last-child {
   border-bottom: none;
 }
+
 .details__fee .recentCt table tbody tr:hover {
-  background: var(--blue);
-  color: var(--white);
+  background: #f8f9fa; 
+  color: #212529;
+  transition: all 0.2s ease;
 }
+
 .details__fee .recentCt table tr td {
-  padding: 10px;
+  padding: 16px 10px;
 }
-.details__fee .recentCt table tr td:last-child {
+
+.details__fee .recentCt table tr td:last-child,
+.details__fee .recentCt .overall tr td:last-child {
   text-align: end;
 }
 
-.details__fee .recentCt .overall tr td:last-child {
-  text-align: center;
-}
-
-.details__fee .recentCt table tr td:nth-child(2) {
-  text-align: center;
-}
-.details__fee .recentCt table tr td:nth-child(3) {
-  text-align: center;
-}
+.details__fee .recentCt table tr td:nth-child(2),
+.details__fee .recentCt table tr td:nth-child(3),
 .details__fee .recentCt table tr td:nth-child(4) {
-  margin: 5px 0;
   text-align: center;
 }
-span{
-  padding: 5px;
-  border-radius: 10px;
-}
 
-.status-paid{
-  background-color: #7DB927;
-  color: #fff;
-}
-
-.status-unpaid{
-  background-color: #B6261D;
-  color: #fff;
-}
-
-.btn{
-  cursor: pointer;
-}
-
-.btn-details{
+.details__fee table td {
   padding: 10px;
-  margin-left: 10px;
-  border-radius: 10px;
-  background-color: #2a2185;
-  color: #fff;
+}
+
+/* =========================================
+   BADGE TRẠNG THÁI & THẺ HTML CHUNG
+========================================= */
+.details__fee span {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.details__fee hr {
+  border-top: 1px solid #f1f3f5;
+  margin: 20px 0;
+}
+
+.details__fee label {
+  position: relative !important;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151 !important; /* Chữ xám đậm nguyên bản */
+  margin-bottom: 8px !important; /* Đẩy input xuống một chút */
+  display: inline-block;
+}
+
+
+
+.status-paid {
+  background-color: #ecfdf5;
+  color: #10b981;
+  border: 1px solid #a7f3d0;
+}
+
+.status-unpaid {
+  background-color: #fffbeb;
+  color: #f59e0b;
+  border: 1px solid #fde68a;
+}
+
+/* =========================================
+   NÚT BẤM (BUTTONS)
+========================================= */
+.btn {
   cursor: pointer;
-}
-.btn-details:hover{
-  background-color: #3d31b8;
+  border: none;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 
-.ant-form-item-label {
+.btn-details {
+  padding: 8px 16px;
+  margin-left: 10px;
+  border-radius: 12px;
+  background-color: #3730a3;
+  color: #fff;
+}
+
+.btn-details:hover {
+  background-color: #312e81;
+  box-shadow: 0 4px 12px rgba(55, 48, 163, 0.2);
+}
+
+.btn-details.delete-icon {
+  background-color: #ef4444;
+  padding: 8px;
+}
+.btn-details.delete-icon:hover {
+  background-color: #dc2626;
+}
+
+/* =========================================
+   GIAO DIỆN INPUT & BỘ LỌC ANT DESIGN (ĐÃ GỘP)
+========================================= */
+
+/* 1. Ép chiều cao và độ bo góc cho KHỐI BAO NGOÀI CÙNG */
+.details__fee .ant-select,
+.details__fee .ant-picker,
+.details__fee .ant-input {
+  height: 40px !important; /* Giảm từ 42px xuống 40px cho gọn gàng */
+  width: 100% !important; 
+  border-radius: 8px !important; /* Đổi từ 12px về 8px để ô input trông cứng cáp, hiện đại hơn */
+}
+
+/* 2. Ép khối bên trong ăn theo 100% chiều cao của bên ngoài */
+.details__fee .ant-select-selector {
+  height: 100% !important;
+}
+
+/* 3. Đổi NỀN TRẮNG và VIỀN XÁM cho các ô nhập liệu */
+.details__fee .ant-select-selector,
+.details__fee .ant-picker,
+.details__fee .ant-input {
+  background-color: #ffffff !important; /* Đổi từ nền xám sang trắng */
+  border: 1px solid #d1d5db !important; /* Viền xám rõ nét */
+  box-shadow: none !important;
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 14px !important;
+}
+
+/* 4. Hiệu ứng Hover & Focus */
+.details__fee .ant-select-selector:hover,
+.details__fee .ant-picker:hover,
+.details__fee .ant-input:hover,
+.details__fee .ant-select-focused .ant-select-selector {
+  background-color: #ffffff !important;
+  border-color: #6366f1 !important;
+}
+
+/* 5. Căn giữa tuyệt đối phần CHỮ */
+.details__fee .ant-select-selection-item,
+.details__fee .ant-select-selection-placeholder {
+  display: flex !important;
+  align-items: center !important;
+  line-height: 40px !important; 
+  margin: 0 !important;
+  padding-right: 28px !important;
+}
+
+/* 6. Căn giữa tuyệt đối phần ICON MŨI TÊN */
+.details__fee .ant-select-arrow {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin-top: 0 !important;
+}
+
+/* 7. Các tùy chỉnh con trỏ chuột và Label con */
+.details__fee .ant-select-selector,
+.details__fee .ant-select-selection-search-input,
+.details__fee .ant-picker,
+.details__fee .ant-picker-input input {
+  cursor: pointer !important;
+}
+
+.details__fee .ant-form-item-label {
   overflow: visible !important;
+  font-weight: 600;
+  color: #495057;
 }
 
-.btn-details.delete-icon{
-  background-color: #B6261D;
-  padding: 5px;
+/* =========================================
+   TĂNG ĐỘ ĐẬM CHO CHỮ TRONG Ô INPUT/SELECT
+========================================= */
+
+/* 1. Tăng độ đậm cho chữ gợi ý (Placeholder: "Chọn khoản thu", "Từ ngày"...) */
+.details__fee .ant-select-selection-placeholder,
+.details__fee .ant-picker-input > input::placeholder,
+.details__fee .ant-input::placeholder {
+  color: #4b5563 !important; /* Màu xám đậm hơn thay vì xám nhạt mặc định */
+  font-weight: 500 !important; /* Tăng độ dày chữ lên Medium */
+  font-size: 14px !important; /* Tăng kích thước chữ gợi ý lên 14px */
 }
 
-/* styles.css hoặc trong <style> của bạn */
-.checkbox-group {
-  display: flex;
-  flex-direction: column; /* Xếp các checkbox theo chiều dọc */
+/* 2. Tăng độ đậm cho chữ SAU KHI ĐÃ CHỌN/NHẬP */
+.details__fee .ant-select-selection-item,
+.details__fee .ant-picker-input > input,
+.details__fee .ant-input {
+  color: #111827 !important; /* Màu đen sắc nét */
+  font-weight: 500 !important;
+  font-size: 14px !important;
 }
 
-.checkbox-group .ant-checkbox-wrapper {
-  margin-bottom: 8px; /* Khoảng cách giữa các checkbox */
-}
-
-.ant-select-multiple .ant-select-selection-item{
-  height: auto;
-}
-
-.ant-select-selection-item{
-  padding: 1px;
-}
-
-.gutter-row{
+/* =========================================
+   CÁC THÀNH PHẦN PHỤ TRỢ KHÁC
+========================================= */
+.details__fee .checkbox-group {
   display: flex;
   flex-direction: column;
 }
 
-.filter_fee{
-  height: 130px;
+.details__fee .checkbox-group .ant-checkbox-wrapper {
+  margin-bottom: 8px;
 }
 
-.ant-picker{
-  padding: 0px 11px;
-  width: 90%;
+.details__fee .gutter-row {
+  display: flex;
+  flex-direction: column;
 }
 
-label{
-  position: relative!important;
+.details__fee .filter_fee {
+  min-height: 130px; 
 }
 
-.checkbox-btn{
+.details__fee .checkbox-btn {
   top: 10px;
 }
 
-.payment{
+.details__fee .payment {
   width: 100%;
   padding: 10px;
 }
 
-.payment > thead > td{
+.details__fee .payment > thead > td {
   font-weight: 600;
 }
 
-.payment > thead > td:last-child{
+.details__fee .payment > thead > td:last-child,
+.details__fee .payment > tbody > tr > td:last-child {
   text-align: end;
 }
 

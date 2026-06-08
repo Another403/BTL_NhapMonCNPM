@@ -50,11 +50,40 @@
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 65% 35%;
   grid-gap: 30px;
   /* margin-top: 10px; */
 }
 
+/* 2. Thêm chống tràn cho khối chứa Bảng thống kê */
+.details .recentCt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max-content;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  
+  /* THÊM 2 DÒNG NÀY ĐỂ ÉP KHỐI NÀY KHÔNG ĐƯỢC PHÁ GRID */
+  min-width: 0; 
+  overflow-x: auto; 
+}
+
+/* 3. Thêm chống tràn cho khối Cập nhật gần đây */
+.recentCustomers {
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  padding: 20px;
+  background: var(--white);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  
+  /* THÊM DÒNG NÀY */
+  min-width: 0; 
+}
 
 .details .recentCt {
   position: relative;

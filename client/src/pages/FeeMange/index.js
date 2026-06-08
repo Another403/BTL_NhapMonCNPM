@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import axios from "axios";
 import { message } from "antd";
 
-function FeeMange(){
+function FeeMange() {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
   const allPayment = useSelector((state) => state.feeManageReducer.totalPayments);
@@ -19,9 +19,9 @@ function FeeMange(){
 
   useEffect(() => {
     dispatch(fetchAllPayments())
-  },[dispatch])
+  }, [dispatch])
 
-  //Dữ liệu để lọc
+  // Dữ liệu để lọc
   const householdName = [
     { value: "", label: "Tất cả" },
     ...[...new Set(allPayment?.map(Tpayment => Tpayment.householdHead))].map(householdHead => ({
@@ -29,7 +29,7 @@ function FeeMange(){
       label: householdHead,
     })),
   ];
-  
+
   const paymentName = [
     { value: "", label: "Tất cả" },
     ...[...new Set(allPayment?.map(Tpayment => Tpayment.feeName))].map(feeName => ({
@@ -46,7 +46,7 @@ function FeeMange(){
     })),
   ]
 
-  //Modal cập nhật
+  // Modal cập nhật
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [checkedPayments, setCheckedPayments] = useState([]);
   const [transactionID, setTransactionID] = useState("");
@@ -63,12 +63,13 @@ function FeeMange(){
       message.error("Không thể tải chi tiết phiếu thu");
     }
   };
+  
   const [filters, setFilters] = useState({
-    paymentName: null, 
-    householdName: null, 
-    fromDate: null,      
+    paymentName: null,
+    householdName: null,
+    fromDate: null,
     toDate: null,
-    paymentStatus: null      
+    paymentStatus: null
   });
 
   useEffect(() => {
@@ -83,7 +84,7 @@ function FeeMange(){
     };
     dispatch(fetchTotalPayments(params));
   }, [dispatch, currentPage, filters, limitItem]);
-  
+
 
   const handleCheck = (paymentId) => {
     setCheckedPayments((prev) => {
@@ -98,7 +99,7 @@ function FeeMange(){
   // Hàm mở Modal
   const showModal = () => {
     setIsModalVisible(true);
-    //Tạo ID giao dịch
+    // Tạo ID giao dịch
     const generateTransactionID = () => {
       const now = new Date().getTime();
       const hash = now.toString(36);
@@ -119,22 +120,20 @@ function FeeMange(){
 
   const totalAmount = selectedPayments?.reduce(
     (sum, item) =>
-      sum += item.amount*item.count,
+      sum += item.amount * item.count,
     0
   ) || 0;
 
   const handlePayment = async () => {
     try {
-      // Gửi danh sách payment_id đến API
       const response = await axios.post("http://localhost:8386/payments/api/v1/changes", {
         payment_ids: selectedPayments?.map((payment) => payment.payment_id),
-        bill_id:transactionID,
+        bill_id: transactionID,
         bill_time: dayjs().toISOString(),
       });
-  
-      // Kiểm tra phản hồi từ API
+
       if (response.status === 200) {
-        message.success(response.data.message); // Hiển thị thông báo thành công
+        message.success(response.data.message);
         setReload(!reload);
         fetchAllPayments();
         const params = {
@@ -147,9 +146,8 @@ function FeeMange(){
           status: filters.paymentStatus === "Đã thanh toán" ? "done" : filters.paymentStatus === "Chưa thanh toán" ? "undone" : null,
         };
         dispatch(fetchTotalPayments(params));
-        handleCancel(); // Đóng modal
-        // Reset danh sách các hóa đơn đã được check
-        setCheckedPayments([]); 
+        handleCancel();
+        setCheckedPayments([]);
       } else {
         message.error("Có lỗi xảy ra khi thanh toán hóa đơn.");
       }
@@ -159,89 +157,86 @@ function FeeMange(){
     }
   };
 
-  console.log(totalPayment);
-
   return (
     <>
       <div className="details__fee">
-        <div className="recentCt">
-          <div className="cardHeader">
-              <h2>Quản lý thu phí chung cư</h2>
-              <Link to="/fee_list">
-                <button className="btn">Danh sách các loại phí</button>
-              </Link>
+        
+        {/* Phần Header trang */}
+        <div className="cardHeader" style={{ padding: "0 10px", alignItems: "center" }}>
+          <div>
+            <h2 style={{ color: "#2a2185", margin: 0, fontSize: "24px", fontWeight: "bold" }}>Quản lý thu phí chung cư</h2>
           </div>
-          <div className="filter_fee">
-            <Form
-              layout="vertical"
-            >
-              <Row
-                gutter={{
-                  xs: 8,
-                  sm: 16,
-                  md: 24,
-                  lg: 32,
-                }}
-              >
-                <Col className="gutter-row" span={4.8}>
-                  <Form.Item label="Tên khoản thu">
-                    <Select 
-                      placeholder="Chọn khoản thu" 
-                      options={paymentName}
-                      onChange={(value) => setFilters((prev) => ({ ...prev, paymentName: value }))}
-                    >
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col className="gutter-row" span={4.8}>
-                  <Form.Item label="Tên chủ hộ">
-                    <Select 
-                      showSearch
-                      placeholder="Chọn chủ hộ" 
-                      filterOption={(input, option) => 
-                        (option.label).includes(input)
-                      }
-                      options={householdName}
-                      onChange={(value) => setFilters((prev) => ({ ...prev, householdName: value }))}
-                    ></Select>
-                  </Form.Item>
-                </Col>
-                <Col className="gutter-row" span={4.8}>
-                  <Form.Item label="Trạng thái">
-                    <Select 
-                      showSearch
-                      placeholder="Chọn trạng thái" 
-                      filterOption={(input, option) => 
-                        (option.label).includes(input)
-                      }
-                      options={paymentStatus}
-                      onChange={(value) => setFilters((prev) => ({ ...prev, paymentStatus: value }))}
-                    ></Select>
-                  </Form.Item>
-                </Col>
-                <Col className="gutter-row" span={4.8}>
-                  <Form.Item label="Từ ngày">
-                    <DatePicker 
-                      onChange={(date) => 
-                        setFilters((prev) => ({ ...prev, fromDate: date ? dayjs(date).format('YYYY-MM-DD') : null }))
-                      }
-                    />
-                  </Form.Item>
-                </Col>
-                <Col className="gutter-row" span={4.8}>
-                  <Form.Item label="Đến ngày">
-                    <DatePicker 
-                      onChange={(date) => 
-                        setFilters((prev) => ({ ...prev, toDate: date ? dayjs(date).format('YYYY-MM-DD') : null }))
-                      }
-                    />
-                  </Form.Item>
-                </Col>
-              </Row>
-              
-            </Form>
-          </div>
+          <Link to="/fee_list">
+            <button className="btn btn-details" style={{ backgroundColor: "#2a2185", fontSize: "16px", padding: "12px 24px", fontWeight: "600", boxShadow: "0 4px 12px rgba(30, 27, 75, 0.15)" }}>
+              Danh sách các loại phí
+            </button>
+          </Link>
+        </div>
 
+        {/* Khối 1: Bộ lọc (Được tách thành 1 thẻ Card riêng) */}
+        <div className="recentCt filter_fee" style={{ minHeight: "auto", paddingBottom: "10px" }}>
+          <Form layout="vertical">
+            <Row gutter={24}>
+              <Col flex={1}>
+                <Form.Item label="Tên khoản thu">
+                  <Select
+                    style={{ width: "100%" }}
+                    placeholder="Chọn khoản thu"
+                    options={paymentName}
+                    onChange={(value) => setFilters((prev) => ({ ...prev, paymentName: value }))}
+                  />
+                </Form.Item>
+              </Col>
+              <Col flex={1}>
+                <Form.Item label="Tên chủ hộ">
+                  <Select
+                    style={{ width: "100%" }}
+                    showSearch
+                    placeholder="Chọn chủ hộ"
+                    filterOption={(input, option) => (option.label).includes(input)}
+                    options={householdName}
+                    onChange={(value) => setFilters((prev) => ({ ...prev, householdName: value }))}
+                  />
+                </Form.Item>
+              </Col>
+              <Col flex={1}>
+                <Form.Item label="Trạng thái">
+                  <Select
+                    style={{ width: "100%" }}
+                    showSearch
+                    placeholder="Chọn trạng thái"
+                    filterOption={(input, option) => (option.label).includes(input)}
+                    options={paymentStatus}
+                    onChange={(value) => setFilters((prev) => ({ ...prev, paymentStatus: value }))}
+                  />
+                </Form.Item>
+              </Col>
+              <Col flex={1}>
+                <Form.Item label="Từ ngày">
+                  <DatePicker
+                    style={{ width: "100%" }}
+                    onChange={(date) =>
+                      setFilters((prev) => ({ ...prev, fromDate: date ? dayjs(date).format('YYYY-MM-DD') : null }))
+                    }
+                  />
+                </Form.Item>
+              </Col>
+              <Col flex={1}>
+                <Form.Item label="Đến ngày">
+                  <DatePicker
+                    style={{ width: "100%" }}
+                    onChange={(date) =>
+                      setFilters((prev) => ({ ...prev, toDate: date ? dayjs(date).format('YYYY-MM-DD') : null }))
+                    }
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Form>
+        </div>
+
+        {/* Khối 2: Bảng dữ liệu (Tách thành 1 thẻ Card riêng) */}
+        <div className="recentCt">
           <table className='overall'>
             <thead>
               <tr>
@@ -251,7 +246,15 @@ function FeeMange(){
                 <td>Tên khoản thu</td>
                 <td>Số tiền cần thu</td>
                 <td>Trạng thái</td>
-                <td><button className="btn-details" onClick={showModal}>Cập nhật</button></td>
+                <td style={{ textAlign: "center" }}>
+                  <button 
+                    className="btn btn-details" 
+                    onClick={showModal}
+                    style={{ backgroundColor: "#10b981", boxShadow: "0 4px 10px rgba(16, 185, 129, 0.2)" }}
+                  >
+                    Cập nhật
+                  </button>
+                </td>
               </tr>
             </thead>
             <tbody>
@@ -262,21 +265,28 @@ function FeeMange(){
                 <tr key={index}>
                   <td>
                     <span
-                      style={{ cursor: "pointer", color: "#2a2185", textDecoration: "underline" }}
+                      style={{ cursor: "pointer", color: "#4f46e5", fontWeight: "600", textDecoration: "underline", padding: 0 }}
                       onClick={() => showDetail(Tpayment.payment_id)}
                     >
                       {Tpayment.payment_id}
                     </span>
                   </td>
-                  <td>{dayjs(Tpayment.payment_date).format('DD/MM/YYYY')}</td> {/* Định dạng ngày nộp */}
-                  <td>{Tpayment.householdHead}</td>
-                  <td>{Tpayment.payment_name}</td> {/* Hiển thị tên khoản thu */}
-                  <td>{Tpayment.amount && Tpayment.count ? Number(Tpayment.amount * Tpayment.count).toLocaleString("vi-VN"): "0"} VNĐ</td> {/* Định dạng số tiền */}
-                  <td>{Tpayment.status}</td> {/* Hiển thị tên khoản thu */}
+                  <td>{dayjs(Tpayment.payment_date).format('DD/MM/YYYY')}</td>
+                  <td style={{ fontWeight: "500", color: "#1f2937" }}>{Tpayment.householdHead}</td>
+                  <td>{Tpayment.payment_name}</td>
+                  <td style={{ fontWeight: "600" }}>
+                    {Tpayment.amount && Tpayment.count ? Number(Tpayment.amount * Tpayment.count).toLocaleString("vi-VN") : "0"} VNĐ
+                  </td>
                   <td>
-                    <Checkbox 
+                    {/* Badge trạng thái tự động đổi màu */}
+                    <span className={Tpayment.status === "Đã thanh toán" ? "status-paid" : "status-unpaid"}>
+                      {Tpayment.status}
+                    </span>
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    <Checkbox
                       className='checkbox-btn'
-                      checked={checkedPayments.includes(Tpayment.payment_id)} 
+                      checked={checkedPayments.includes(Tpayment.payment_id)}
                       onChange={() => handleCheck(Tpayment.payment_id)}
                       disabled={Tpayment.status === "Đã thanh toán"}
                     />
@@ -285,8 +295,9 @@ function FeeMange(){
               ))}
             </tbody>
           </table>
+
           {totalItems > 0 && (
-            <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
               <Pagination
                 current={currentPage}
                 pageSize={limitItem}
@@ -295,83 +306,78 @@ function FeeMange(){
               />
             </div>
           )}
+        </div>
 
-          <Modal
-            title={`Thanh toán hoá đơn cho hộ: `}
-            open={isModalVisible}
-            onCancel={handleCancel}
-            okText="Thanh toán"
-            cancelText="Hủy"
-            onOk={handlePayment}
-          >
-            <Form layout="horizontal">
-              <Form.Item label="ID giao dịch">
-                <Input value={transactionID} readOnly />
-              </Form.Item>
-              <hr/>
-              <table className="payment">
-                <thead>
+        {/* Modal Thanh Toán Giữ Nguyên */}
+        <Modal
+          title={`Thanh toán hoá đơn cho hộ: `}
+          open={isModalVisible}
+          onCancel={handleCancel}
+          okText="Thanh toán"
+          cancelText="Hủy"
+          onOk={handlePayment}
+          okButtonProps={{ style: { backgroundColor: '#10b981', borderColor: '#10b981' } }}
+        >
+          <Form layout="horizontal">
+            <Form.Item label="ID giao dịch">
+              <Input value={transactionID} readOnly />
+            </Form.Item>
+            <hr />
+            <table className="payment">
+              <thead>
+                <tr>
                   <td>ID hoá đơn</td>
                   <td>Loại phí</td>
                   <td>Giá (VNĐ)</td>
                   <td>Hạn nộp</td>
-                </thead>
-                <tbody>
-                  {selectedPayments?.map((Tpayment, index) => (
-                    <tr key={index}>
-                      <td>{Tpayment.payment_id}</td>
-                      <td>{Tpayment.feeName}</td> 
-                      <td>{Number(Tpayment.amount * Tpayment.count).toLocaleString('vi-VN')}</td>
-                      <td>{dayjs(Tpayment.payment_date).format('DD/MM/YYYY')}</td>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedPayments?.map((Tpayment, index) => (
+                  <tr key={index}>
+                    <td>{Tpayment.payment_id}</td>
+                    <td>{Tpayment.feeName}</td>
+                    <td>{Number(Tpayment.amount * Tpayment.count).toLocaleString('vi-VN')}</td>
+                    <td>{dayjs(Tpayment.payment_date).format('DD/MM/YYYY')}</td>
                   </tr>
-                  ))}
-                  </tbody>
-              </table>
-              <hr/>
-              <Form.Item>
-                <Row
-                  gutter={{
-                    xs: 8,
-                    sm: 16,
-                    md: 24,
-                    lg: 32,
-                  }}
-                >
-                  <Col className="gutter-row" span={12}>
-                    <Form.Item label="Ngày thanh toán">
-                      <Input value={dayjs().format('DD/MM/YYYY')} readOnly/>
-                    </Form.Item>
-                  </Col>
-                  <Col className="gutter-row" span={12}>
-                    <Form.Item 
-                      label="Tổng (VNĐ):" 
-                      labelCol={{ span: 16 }}
-                      wrapperCol={{ span: 8 }} 
-                      labelAlign='right'
-                      textAlign='right'
-                    >
-                      <InputNumber 
-                        value={totalAmount} 
-                        readOnly
-                        formatter={(value) => `${Number(value).toLocaleString("vi-VN")}`} 
-                        parser={(value) => value.replace(/\D/g, '')}
-                      />
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Form.Item>
-            </Form>
-          </Modal>
+                ))}
+              </tbody>
+            </table>
+            <hr />
+            <Form.Item>
+              <Row gutter={[16, 16]}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Ngày thanh toán">
+                    <Input value={dayjs().format('DD/MM/YYYY')} readOnly />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Tổng (VNĐ):"
+                    labelCol={{ span: 10 }}
+                    wrapperCol={{ span: 14 }}
+                  >
+                    <InputNumber
+                      style={{ width: "100%" }}
+                      value={totalAmount}
+                      readOnly
+                      formatter={(value) => `${Number(value).toLocaleString("vi-VN")}`}
+                      parser={(value) => value.replace(/\D/g, '')}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form.Item>
+          </Form>
+        </Modal>
+      </div>
 
-        </div>
-    </div>
-
-      {/* Modal chi tiết phiếu thu */}
+      {/* Modal chi tiết phiếu thu Giữ Nguyên */}
       <Modal
         title={`Chi tiết phiếu thu — ${detailData?.payment_id ?? ""}`}
         open={detailVisible}
         onCancel={() => setDetailVisible(false)}
-        footer={<button className="btn" onClick={() => setDetailVisible(false)}>Đóng</button>}
+        footer={<button className="btn btn-details" onClick={() => setDetailVisible(false)}>Đóng</button>}
         centered
       >
         {detailData && (
@@ -379,16 +385,16 @@ function FeeMange(){
             <tbody>
               {[
                 ["Tên khoản phí", detailData.feeName ?? "—"],
-                ["Loại phí", {service:"Dịch vụ", management:"Quản lý", parking:"Gửi xe", utility:"Tiện ích", contribution:"Đóng góp"}[detailData.feeType] ?? "—"],
+                ["Loại phí", { service: "Dịch vụ", management: "Quản lý", parking: "Gửi xe", utility: "Tiện ích", contribution: "Đóng góp" }[detailData.feeType] ?? "—"],
                 ["Số tiền", `${(detailData.amount * (detailData.count || 1)).toLocaleString("vi-VN")} VNĐ`],
                 ["Hạn nộp", dayjs(detailData.payment_date).format("DD/MM/YYYY")],
-                ["Trạng thái", detailData.status],
+                ["Trạng thái", <span className={detailData.status === "Đã thanh toán" ? "status-paid" : "status-unpaid"}>{detailData.status}</span>],
                 ["ID giao dịch", detailData.bill_id ?? "Chưa thanh toán"],
                 ["Thời gian thanh toán", detailData.bill_time ? dayjs(detailData.bill_time).format("DD/MM/YYYY HH:mm") : "—"],
-              ].map(([label, value]) => (
-                <tr key={label} style={{ borderBottom: "1px solid #f0f0f0" }}>
-                  <td style={{ padding: "8px 12px", color: "#888", width: "45%" }}>{label}</td>
-                  <td style={{ padding: "8px 12px", fontWeight: 500 }}>{value}</td>
+              ].map(([label, value], i) => (
+                <tr key={i} style={{ borderBottom: "1px solid #f0f0f0" }}>
+                  <td style={{ padding: "12px 12px", color: "#6b7280", width: "40%" }}>{label}</td>
+                  <td style={{ padding: "12px 12px", fontWeight: 500, color: "#1f2937" }}>{value}</td>
                 </tr>
               ))}
             </tbody>
@@ -398,4 +404,4 @@ function FeeMange(){
     </>
   )
 }
-export default FeeMange
+export default FeeMange;

@@ -1,7 +1,5 @@
-import "./asset/css/material-design-iconic-font.min.css"
-import "./asset/css/style.css"
+import "./asset/css/style.css";
 import { useState } from "react";
-import { FcOk } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changePassword } from "../../actions";
@@ -19,16 +17,16 @@ function Password() {
   const minLength = /.{8,}/;
   const hasUpperCase = /[A-Z]/;
   const hasLowerCase = /[a-z]/;
+  const hasLowerCase = /[a-z]/;
   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
   const hasNumber = /\d/;
 
+  // State đánh giá tiêu chí
   const [isMinLengthValid, setMinLengthValid] = useState(false);
   const [isHasUpperCase, setIsHasUpperCase] = useState(false);
   const [isHasLowerCase, setIsHasLowerCase] = useState(false);
   const [isHasSpecialChar, setIsHasSpecialChar] = useState(false);
   const [isHasNumber, setIsHasNumber] = useState(false);
-
-  const [newPassword, setNewPassword] = useState("");
   const [isNewValid, setIsNewValid] = useState(false);
   const [checkClass, setCheckClass] = useState(false);
 
@@ -47,7 +45,6 @@ function Password() {
   }
 
   const handleNewPassword = (e) => {
-    e.preventDefault();
     const value = e.target.value;
     setNewPassword(value);
     setIsNewValid(validateNewPassword(value));
@@ -70,10 +67,10 @@ function Password() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isNewValid) {
-      message.error("Mật khẩu mới không hợp lệ. Vui lòng kiểm tra lại yêu cầu.");
+      message.error("Mật khẩu mới không hợp lệ. Vui lòng kiểm tra lại yêu cầu an toàn.");
       return;
     }
-    if (!check) {
+    if (newPassword !== confirmPassword) {
       message.error("Mật khẩu xác nhận không khớp.");
       return;
     }

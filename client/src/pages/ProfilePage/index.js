@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Form, Input, message, DatePicker } from 'antd'
+import { Input, message, DatePicker } from 'antd';
 import { Link } from 'react-router-dom';
+import { UserOutlined, MailOutlined, PhoneOutlined, CalendarOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import './style.css'
+import './style.css';
 
 export default function PersonalProfile() {
   const [data, setData] = useState({
@@ -10,8 +11,10 @@ export default function PersonalProfile() {
     email: "",
     dob: "",
     contact_phone: "",
-    address: ""
   });
+  
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempData, setTempData] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:8386/auth/api/v1/profile", {
@@ -19,107 +22,188 @@ export default function PersonalProfile() {
       headers: {"Content-Type": "application/json"},
       credentials: "include"
     })
-    .then((res) => {
-      return res.json();
+    .then((res) => res.json())
+    .then((fetchedData) => {
+      setData(fetchedData);
     })
-    .then((data) => {
-      setData(data);
-    })
-  }, [])
+  }, []);
 
-  const handleClick = () => {
+  const handleEditClick = () => {
+    setTempData(data); 
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false); 
+  };
+
+  const handleSaveClick = () => {
     fetch("http://localhost:8386/auth/api/v1/edit", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(data),
+      body: JSON.stringify(tempData),
       credentials: "include"
     })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      if(data.message && data.message === "Success") {
+    .then((res) => res.json())
+    .then((response) => {
+      if(response.message && response.message === "Success") {
         message.success("Cập nhật thông tin thành công");
-        setData(data.profile);
-      } else if (data.message)
-        alert(data.message);
+        setData(response.profile);
+        setIsEditing(false);
+      } else if (response.message) {
+        alert(response.message);
+      }
     })
-  }
+  };
 
   const handleChange = (field, value) => {
-    setData({
-      ...data,
+    setTempData({
+      ...tempData,
       [field]: value,
     });
   };
 
+  const displayData = isEditing ? tempData : data;
+
   return (
-    <>
-    <div className="container">
-      <div className="main-body">
+    <div className="profile-page-container">
+      <div className="profile-header-text">
         <h2>Hồ sơ cá nhân</h2>
-        <div className="row gutters-sm">
-          <div className="col-md-4 mb-3">
-            <div className="card-profile">
-              <div className="card-body">
-                <div className="d-flex flex-column align-items-center text-center">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150"/>
-                  <div className="mt-3">
-                    <h4>Admin</h4>
-                    <p>{data.fullname}</p>
-                    <p>Quản trị viên</p>
-                    <Link to="/password" className="btn">Đổi mật khẩu</Link>
+      </div>
+
+      <div className="profile-grid">
+        
+        {/* CỘT TRÁI */}
+        <div className="profile-left-card">
+          <div className="profile-cover"></div>
+          <div className="profile-avatar-section">
+            <div className="avatar-wrapper">
+              <img src="https://api.dicebear.com/7.x/notionists/svg?seed=NguyenDu&backgroundColor=e0e7ff" alt="Avatar" />
+            </div>
+            <h3>{data.fullname || 'Admin'}</h3>
+            <span className="role-badge">
+              <SafetyCertificateOutlined /> Quản trị viên
+            </span>
+          </div>
+          <div className="profile-actions">
+            <Link to="/password" className="btn-change-password">
+              Đổi mật khẩu
+            </Link>
+          </div>
+        </div>
+
+        {/* CỘT PHẢI */}
+        <div className="profile-right-card">
+          <div className="card-header">
+            <h3>Thông tin liên hệ</h3>
+            {!isEditing ? (
+              <button className="btn-edit" onClick={handleEditClick}>Chỉnh sửa</button>
+            ) : (
+              <div className="edit-actions">
+                <button className="btn-cancel" onClick={handleCancelClick}>Hủy bỏ</button>
+                <button className="btn-save" onClick={handleSaveClick}>Lưu thay đổi</button>
+              </div>
+            )}
+          </div>
+
+          {/* GRID FORM (Sử dụng Inline Style chia cột) */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '25px 30px' }}>
+            
+            {/* HỌ VÀ TÊN (Chiếm cả 2 cột) */}
+            <div style={{ gridColumn: 'span 2' }}>
+              {/* Tầng 1: Chứa duy nhất Label để ép ngắt dòng */}
+              <div style={{ display: 'block', marginBottom: '0px' }}>
+                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '8px', margin: 0, fontWeight: 600, color: '#475569', fontSize: '14px' }}>
+                  <UserOutlined /> Họ và tên
+                </label>
+              </div>
+              
+              {/* Tầng 2: Chứa Input/View Box */}
+              <div style={{ display: 'block' }}>
+                {isEditing ? (
+                  <Input 
+                    value={displayData.fullname} 
+                    onChange={(e) => handleChange("fullname", e.target.value)} 
+                    style={{ width: '100%', height: '46px', borderRadius: '12px' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', minHeight: '46px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#1e293b', fontWeight: 500 }}>
+                    {displayData.fullname || 'Nguyễn Du'}
                   </div>
-                </div>
+                )}
               </div>
             </div>
-          </div>
-          <div className="col-md-8">
-            <Form layout='vertical'>
-              <div className="card mb-3">
-                <div className="card-body">
-                  <Form.Item label="Họ và tên:">
-                    <div className="row">
-                      <Input value={data.fullname} onChange={(e) => handleChange("fullname", e.target.value)}/>
-                    </div>
-                  </Form.Item>
-                  <hr/>
-                  <Form.Item label="Email:">
-                    <div className="row">
-                      <Input value={data.email} onChange={(e) => handleChange("email", e.target.value)}/>
-                    </div>
-                  </Form.Item>
-                  <hr/>
-                  <Form.Item label="Ngày sinh:">
-                    <div className="row">
-                      <DatePicker value={data.dob ? dayjs(data.dob) : null} onChange={(date) => handleChange("dob", date ? date.toISOString() : "")} format="DD/MM/YYYY"/>
-                    </div>
-                  </Form.Item>
-                  <hr/>
-                  <Form.Item label="Số điện thoại:">
-                    <div className="row">
-                      <Input value={data.contact_phone} onChange={(e) => handleChange("contact_phone", e.target.value)}/>
-                    </div>
-                  </Form.Item>
-                  <hr/>
-                  <Form.Item label="Địa chỉ:">
-                    <div className="row">
-                      <Input value={data.address} onChange={(e) => handleChange("address", e.target.value)}/>
-                    </div>
-                  </Form.Item>
-                  <hr/>
-                  <div className="row">
-                    <div className="col-sm-12">
-                      <button className="btn" onClick={handleClick}>Cập nhật</button>
-                    </div>
-                  </div>
-                </div>
+
+            {/* EMAIL (Chiếm 1 cột) */}
+            <div>
+              <div style={{ display: 'block', marginBottom: '0px' }}>
+                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '8px', margin: 0, fontWeight: 600, color: '#475569', fontSize: '14px' }}>
+                  <MailOutlined /> Địa chỉ Email
+                </label>
               </div>
-            </Form>
-        </div>
+              <div style={{ display: 'block' }}>
+                {isEditing ? (
+                  <Input 
+                    value={displayData.email} 
+                    onChange={(e) => handleChange("email", e.target.value)} 
+                    style={{ width: '100%', height: '46px', borderRadius: '12px' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', minHeight: '46px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#1e293b', fontWeight: 500 }}>
+                    {displayData.email || 'admin.nguyendu@bluemoon.com'}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* SỐ ĐIỆN THOẠI (Chiếm 1 cột) */}
+            <div>
+              <div style={{ display: 'block', marginBottom: '0px' }}>
+                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '8px', margin: 0, fontWeight: 600, color: '#475569', fontSize: '14px' }}>
+                  <PhoneOutlined /> Số điện thoại
+                </label>
+              </div>
+              <div style={{ display: 'block' }}>
+                {isEditing ? (
+                  <Input 
+                    value={displayData.contact_phone} 
+                    onChange={(e) => handleChange("contact_phone", e.target.value)} 
+                    style={{ width: '100%', height: '46px', borderRadius: '12px' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', minHeight: '46px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#1e293b', fontWeight: 500 }}>
+                    {displayData.contact_phone || '012345689'}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* NGÀY SINH (Chiếm 1 cột) */}
+            <div>
+              <div style={{ display: 'block', marginBottom: '0px' }}>
+                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '8px', margin: 0, fontWeight: 600, color: '#475569', fontSize: '14px' }}>
+                  <CalendarOutlined /> Ngày sinh
+                </label>
+              </div>
+              <div style={{ display: 'block' }}>
+                {isEditing ? (
+                  <DatePicker 
+                    value={displayData.dob ? dayjs(displayData.dob) : null} 
+                    onChange={(date) => handleChange("dob", date ? date.toISOString() : "")} 
+                    format="DD/MM/YYYY" 
+                    style={{ width: '100%', height: '46px', borderRadius: '12px' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', minHeight: '46px', display: 'flex', alignItems: 'center', background: '#f8fafc', padding: '0 16px', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#1e293b', fontWeight: 500 }}>
+                    {displayData.dob ? dayjs(displayData.dob).format('DD/MM/YYYY') : '15/05/1990'}
+                  </div>
+                )}
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
-    </>
   );
 }
