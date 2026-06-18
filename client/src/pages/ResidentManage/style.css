@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 .cardBox {
   position: relative;
   width: 100%;
@@ -434,7 +434,7 @@ label{
   .cardBox .card .iconBx {
     font-size: 2.5rem !important;
   }
-=======
+}
 .cardBox {
   position: relative;
   width: 100%;
@@ -798,5 +798,4 @@ label{
     margin: 0 4px !important;
     width: auto !important;
     border-radius: 4px !important;
->>>>>>> d9284e0d35d8d1126ce2902ffee6061353acce46
 }

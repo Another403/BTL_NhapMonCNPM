@@ -17,7 +17,6 @@ function Password() {
   const minLength = /.{8,}/;
   const hasUpperCase = /[A-Z]/;
   const hasLowerCase = /[a-z]/;
-  const hasLowerCase = /[a-z]/;
   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
   const hasNumber = /\d/;
 
