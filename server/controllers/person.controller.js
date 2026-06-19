@@ -150,6 +150,34 @@ const getPersonAll = async (req, res) => {
     if (req.query.status) filter.status = req.query.status;
     if (req.query.gender) filter.gender = req.query.gender;
 
+    if (req.query.floorNumber || req.query.roomNumber) {
+      const apartmentQuery = {};
+      const roomNumber = Number(req.query.roomNumber);
+      const floorNumber = Number(req.query.floorNumber);
+
+      if (req.query.floorNumber && Number.isNaN(floorNumber))
+        return res.status(400).json({ message: 'Invalid floor number' });
+
+      if (req.query.roomNumber) {
+        if (Number.isNaN(roomNumber))
+          return res.status(400).json({ message: 'Invalid apartment number' });
+        if (req.query.floorNumber && Math.floor(roomNumber / 100) !== floorNumber) {
+          filter.householdId = { $in: [] };
+        } else {
+          apartmentQuery.number = roomNumber;
+        }
+      } else if (req.query.floorNumber) {
+        apartmentQuery.number = { $gte: floorNumber * 100, $lt: (floorNumber + 1) * 100 };
+      }
+
+      if (!filter.householdId) {
+        const apartmentsFound = await apartment.find(apartmentQuery).select('_id');
+        const apartmentIds = apartmentsFound.map(apt => apt._id);
+        const householdsFound = await household.find({ apartments: { $in: apartmentIds } }).select('_id');
+        filter.householdId = { $in: householdsFound.map(item => item._id) };
+      }
+    }
+
     const skip = (pagination.currentPage - 1) * pagination.limitItem;
     pagination.totalItems = await person.countDocuments(filter);
     pagination.totalPage = Math.ceil(pagination.totalItems / pagination.limitItem);
@@ -169,7 +197,7 @@ const getPersonAll = async (req, res) => {
           );
           const valid = ownedApartments.filter(Boolean);
           numbers = valid.map(owned => owned.number);
-          floors = valid.map(owned => (Number(owned.number) / 100).toFixed(0));
+          floors = valid.map(owned => String(Math.floor(Number(owned.number) / 100)));
         }
       }
 

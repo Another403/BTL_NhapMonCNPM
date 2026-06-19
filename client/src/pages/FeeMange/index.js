@@ -15,8 +15,6 @@ function FeeMange() {
   const totalPayment = useSelector((state) => state.feePageReducer.totalPayments);
   const limitItem = useSelector((state) => state.feeManageReducer.limitItem);
   const totalItems = useSelector((state) => state.feePageReducer.totalItems);
-  const [reload, setReload] = useState(false);
-
   useEffect(() => {
     dispatch(fetchAllPayments())
   }, [dispatch])
@@ -98,6 +96,11 @@ function FeeMange() {
 
   // Hàm mở Modal
   const showModal = () => {
+    if (checkedPayments.length === 0) {
+      message.warning("Vui lòng chọn ít nhất một hóa đơn chờ thanh toán");
+      return;
+    }
+
     setIsModalVisible(true);
     // Tạo ID giao dịch
     const generateTransactionID = () => {
@@ -134,8 +137,7 @@ function FeeMange() {
 
       if (response.status === 200) {
         message.success(response.data.message);
-        setReload(!reload);
-        fetchAllPayments();
+        dispatch(fetchAllPayments());
         const params = {
           page: currentPage,
           limit: limitItem,
@@ -250,6 +252,7 @@ function FeeMange() {
                   <button 
                     className="btn btn-details" 
                     onClick={showModal}
+                    disabled={checkedPayments.length === 0}
                     style={{ backgroundColor: "#10b981", boxShadow: "0 4px 10px rgba(16, 185, 129, 0.2)" }}
                   >
                     Cập nhật

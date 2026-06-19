@@ -1,523 +1,257 @@
-<<<<<<< HEAD
-.details__vehicle{
+.details__vehicle {
   position: relative;
   width: 100%;
   padding: 20px;
-  display: grid;
-  grid-gap: 30px;
 }
 
 .details__vehicle .recentCt {
   position: relative;
-  display: grid;
   min-height: 400px;
   background: var(--white);
-  padding: 20px;
+  padding: 28px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
-  grid-template-rows: 100px 1fr;
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .details__vehicle .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 72px;
 }
 
-.details__vehicle .cardHeader .all-button{
-  display: flex;
+.details__vehicle .cardHeader h2 {
+  color: var(--blue);
+  font-size: 28px;
+  margin: 4px 0 0;
 }
 
-.details__vehicle .cardHeader .all-button > .btn{
-  margin: 5px;
+.details__vehicle .btn {
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 14px;
+}
+
+.details__vehicle .filter_options {
+  margin-bottom: 64px;
+}
+
+.details__vehicle .vehicle-filter-row {
+  align-items: flex-start;
+}
+
+.details__vehicle .filter_options .ant-form-item {
+  width: min(100%, 455px);
+  margin-bottom: 0;
+}
+
+.details__vehicle .filter_options .ant-select,
+.details__vehicle .filter_options .ant-input-affix-wrapper,
+.details__vehicle .filter_options .ant-input {
+  width: 100%;
+  max-width: 455px;
+}
+
+.details__vehicle .filter_options .ant-select-selector,
+.details__vehicle .filter_options .ant-input-affix-wrapper,
+.details__vehicle .filter_options .ant-input {
+  min-height: 40px;
+  border-radius: 8px;
+}
+
+.details__vehicle .filter_options .ant-select-selection-placeholder,
+.details__vehicle .filter_options .ant-select-selection-item {
+  padding: 0;
+}
+
+.details__vehicle .ant-form-item-label {
+  overflow: visible;
+}
+
+.details__vehicle .ant-form-item-label > label {
+  color: var(--black1);
+  font-size: 16px;
+  height: auto;
+  position: static !important;
+}
+
+.details__vehicle .vehicle-table-wrap {
+  width: 100%;
+  overflow-x: auto;
 }
 
 .details__vehicle table {
   width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
-  margin-top: 10px;
-  z-index: 1;
 }
+
 .details__vehicle table thead td {
   font-weight: 700;
 }
+
 .details__vehicle .recentCt table tr {
   color: var(--black1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-.details__vehicle .recentCt  table tr:last-child {
+
+.details__vehicle .recentCt table tr:last-child {
   border-bottom: none;
 }
-.details__vehicle .recentCt table tbody tr:hover {
+
+.details__vehicle .recentCt table tbody tr:not(.vehicle-empty-row):hover {
   background: var(--blue);
   color: var(--white);
 }
+
 .details__vehicle .recentCt table tr td {
-  padding: 10px;
-}
-.details__vehicle .recentCt table tr td:last-child {
-  text-align: end;
+  padding: 12px 10px;
 }
 
-.details__vehicle .recentCt .overall tr td:last-child {
+.details__vehicle .recentCt table tr td:nth-child(2),
+.details__vehicle .recentCt table tr td:nth-child(3),
+.details__vehicle .recentCt table tr td:nth-child(4),
+.details__vehicle .recentCt table tr td:nth-child(5) {
   text-align: center;
 }
 
-.details__vehicle .recentCt table tr td:nth-child(2) {
+.details__vehicle .vehicle-empty {
+  color: #999;
+  padding: 48px 0;
   text-align: center;
 }
-.details__vehicle .recentCt table tr td:nth-child(3) {
-  text-align: center;
-}
-.details__vehicle .recentCt table tr td:nth-child(4) {
-  margin: 5px 0;
-  text-align: center;
-}
-span{
-  padding: 5px;
-  border-radius: 10px;
+
+.details__vehicle .vehicle-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
-.status-paid{
-  background-color: #7DB927;
-  color: #fff;
-}
-
-.status-unpaid{
-  background-color: #B6261D;
-  color: #fff;
-}
-
-.btn{
-  cursor: pointer;
-}
-
-.btn-details{
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 10px;
-  background-color: #8de02c;
+.details__vehicle .btn-details {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #7db927;
   color: #fff;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ant-form-item-label {
-  overflow: visible !important;
+.details__vehicle .btn-details.delete-icon {
+  background-color: #b6261d;
 }
 
-.btn-details.delete-icon{
-  background-color: #B6261D;
-  padding: 5px;
+.vehicle-modal .ant-modal-content {
+  width: 100% !important;
+  border-radius: 8px;
 }
 
-/* styles.css hoặc trong <style> của bạn */
-.checkbox-group {
-  display: flex;
-  flex-direction: column; /* Xếp các checkbox theo chiều dọc */
+.vehicle-modal .ant-modal-body {
+  padding-top: 8px;
 }
 
-.checkbox-group .ant-checkbox-wrapper {
-  margin-bottom: 8px; /* Khoảng cách giữa các checkbox */
+.vehicle-modal .ant-form-item {
+  margin-bottom: 18px;
 }
 
-.ant-select-multiple .ant-select-selection-item{
-  height: auto;
+.vehicle-modal .ant-form-item-label {
+  overflow: visible;
+  padding-bottom: 6px;
 }
 
-.ant-select-selection-item{
-  padding: 1px;
+.vehicle-modal .ant-form-item-label > label {
+  color: var(--black1);
+  display: inline-flex;
+  height: auto !important;
+  line-height: 1.4;
+  position: static !important;
 }
 
-.gutter-row{
-  display: flex;
-  flex-direction: column;
+.vehicle-modal .ant-form-item-required::before {
+  line-height: 1;
+  margin-inline-end: 4px;
+  position: static;
 }
 
-.filter_fee{
-  height: 130px;
-}
-
-.ant-picker{
-  padding: 0px 11px;
-  width: 90%;
-}
-
-label{
-  position: relative!important;
-}
-
-.checkbox-btn{
-  top: 10px;
-}
-
-.payment{
+.vehicle-modal .ant-select,
+.vehicle-modal .ant-input,
+.vehicle-modal .ant-input-affix-wrapper {
   width: 100%;
-  padding: 10px;
+  max-width: none;
 }
 
-.payment > thead > td{
-  font-weight: 600;
+.vehicle-modal .ant-select-selector,
+.vehicle-modal .ant-input,
+.vehicle-modal .ant-input-affix-wrapper {
+  min-height: 40px;
+  border-radius: 8px;
 }
 
-.payment > thead > td:last-child{
-  text-align: end;
+.vehicle-modal .ant-select-selection-placeholder,
+.vehicle-modal .ant-select-selection-item {
+  padding: 0;
 }
 
-.payment > tbody > tr > td:last-child{
-  text-align: end;
+.vehicle-modal .ant-radio-wrapper .ant-radio,
+.vehicle-modal .ant-radio-wrapper .ant-radio-inner {
+  padding: 0;
+  border-radius: 50%;
 }
 
-table td{
-  padding: 10px;
+.vehicle-modal .ant-radio-wrapper > span:last-child {
+  padding: 0 0 0 8px;
+  border-radius: 0;
 }
 
-.ant-modal-content{
-  width: 130%;
-}
-
-hr{
-  border-top: 0.25px solid #0000002b;
+.vehicle-modal-actions .ant-form-item-control-input-content {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
 }
 
 @media (max-width: 768px) {
+  .details__vehicle {
+    padding: 12px;
+  }
+
   .details__vehicle .recentCt {
-    overflow-x: auto !important;
-    padding: 12px 8px !important;
+    padding: 18px 12px;
   }
-  .details__vehicle table {
-    min-width: 400px !important;
-    white-space: nowrap !important;
-  }
+
   .details__vehicle .cardHeader {
+    align-items: stretch;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 12px;
+    margin-bottom: 28px;
   }
-  .ant-modal-content {
-    width: 100% !important;
+
+  .details__vehicle .cardHeader h2 {
+    font-size: 24px;
   }
-=======
-/* Bao bọc toàn bộ trang, tránh leak CSS */
-.vm-wrapper {
-  background-color: #f6f6f9;
-  min-height: 100vh;
-  padding: 24px 32px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  box-sizing: border-box;
-}
 
-.vm-wrapper * {
-  box-sizing: border-box;
-}
+  .details__vehicle .filter_options {
+    margin-bottom: 28px;
+  }
 
-/* Thẻ (Card) chính */
-.vm-wrapper .vm-card {
-  background-color: #ffffff;
-  border-radius: 24px;
-  padding: 32px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-}
+  .details__vehicle .filter_options .ant-select,
+  .details__vehicle .filter_options .ant-input-affix-wrapper,
+  .details__vehicle .filter_options .ant-input {
+    width: 100%;
+    max-width: 100%;
+  }
 
-/* HEADER */
-.vm-wrapper .vm-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.vm-wrapper .vm-title-group {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.vm-wrapper .vm-icon-box {
-  background-color: #eef2ff;
-  color: #4f46e5;
-  padding: 12px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.vm-wrapper .vm-title {
-  margin: 0;
-  font-size: 24px;
-  color: #2a2185;
-  font-weight: 700;
-}
-
-.vm-wrapper .vm-subtitle {
-  margin: 4px 0 0 0;
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.vm-wrapper .vm-btn-add {
-  background-color: #3730a3;
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 20px;
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(55, 48, 163, 0.2);
-}
-
-.vm-wrapper .vm-btn-add:hover {
-  background-color: #312e81;
-  transform: translateY(-1px);
-}
-
-/* ==========================================================================
-   BỘ LỌC (FILTERS) & CUSTOM DROPDOWN CHỦ HỘ (ÉP CỨNG CHỐNG ĐÈ LAYER)
-   ========================================================================== */
-
-.vm-wrapper .vm-filters {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 24px !important;
-  margin-bottom: 32px !important;
-}
-
-/* Đổi thành block thay vì flex để tránh bị thư viện ngoài bóp méo chiều cao */
-.vm-wrapper .vm-filter-group {
-  display: block !important; 
-  position: relative !important;
-  width: 100% !important;
-  height: auto !important; 
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* KHÓA CHẶT LABEL: Chống trôi nổi (absolute) đè lên box */
-.vm-wrapper .vm-filter-group label {
-  display: block !important;
-  position: static !important; /* <- QUAN TRỌNG NHẤT: Vô hiệu hóa absolute từ bên ngoài */
-  width: 100% !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #374151 !important;
-  margin: 0 0 8px 0 !important; /* Ép khoảng cách 8px xuống box dưới */
-  padding: 0 !important;
-  line-height: 1.5 !important;
-  transform: none !important;
-}
-
-/* Container bọc ngoài Dropdown và Input */
-.vm-wrapper .vm-custom-dropdown-container,
-.vm-wrapper .vm-input-wrapper {
-  display: block !important;
-  position: relative !important; /* Bắt buộc relative để chứa icon bên trong */
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  clear: both !important;
-  transform: none !important;
-}
-
-/* --- BOX KÍCH HOẠT (TRIGGER) & INPUT CHÍNH --- */
-.vm-wrapper .vm-dropdown-trigger,
-.vm-wrapper .vm-filter-group input {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  width: 100% !important;
-  height: 48px !important;
-  padding: 0 16px !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 12px !important;
-  background-color: #f9fafb !important;
-  font-size: 14px !important;
-  color: #374151 !important;
-  cursor: pointer !important; /* Mặc định là bàn tay cho dropdown */
-  user-select: none !important;
-  transition: all 0.2s ease-in-out !important;
-  box-sizing: border-box !important;
-  position: relative !important; /* Chống bị absolute */
-  margin: 0 !important;
-}
-
-/* Định dạng chữ gợi ý (Placeholder) */
-.vm-wrapper .vm-select-placeholder {
-  color: #9ca3af !important; 
-}
-
-.vm-wrapper .vm-select-text {
-  color: #374151 !important;
-  font-weight: 500 !important;
-}
-
-/* Hiệu ứng khi bấm mở hộp chọn / focus */
-.vm-wrapper .vm-dropdown-trigger.vm-active,
-.vm-wrapper .vm-filter-group input:focus {
-  background-color: #ffffff !important;
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
-  outline: none !important;
-}
-
-/* Icon chevron mở rộng */
-.vm-wrapper .vm-chevron-icon {
-  color: #9ca3af !important;
-  transition: transform 0.2s ease !important;
-}
-
-.vm-wrapper .vm-chevron-icon.vm-rotate {
-  transform: rotate(180deg) !important;
-  color: #6366f1 !important;
-}
-
-/* --- DANH SÁCH MỞ RỘNG ĐỔ XUỐNG --- */
-.vm-wrapper .vm-dropdown-menu-list {
-  position: absolute !important;
-  top: calc(100% + 6px) !important; 
-  left: 0 !important;
-  width: 100% !important;
-  background-color: #ffffff !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 12px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 
-              0 8px 16px -6px rgba(0, 0, 0, 0.05),
-              0 0 1px 0 rgba(0, 0, 0, 0.1) !important;
-  z-index: 9999 !important; 
-  padding: 4px 0 !important; /* Thay đổi 1: Giảm lề trên/dưới của cả menu từ 6px xuống 4px */
-  max-height: 180px !important; /* Thay đổi 2: Ép chiều cao tối đa từ 240px xuống 180px (sẽ hiện thanh cuộn sớm hơn nếu có nhiều dữ liệu) */
-  overflow-y: auto !important; 
-}
-
-.vm-wrapper .vm-dropdown-menu-item {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 6px 16px !important; /* Thay đổi 3: Giảm padding dọc từ 10px xuống 6px để các dòng xếp khít nhau hơn */
-  font-size: 14px !important;
-  color: #4b5563 !important;
-  cursor: pointer !important;
-  transition: background-color 0.15s ease, color 0.15s ease !important;
-}
-
-.vm-wrapper .vm-dropdown-menu-item:hover {
-  background-color: #f3f4f6 !important; 
-  color: #111827 !important;
-}
-
-.vm-wrapper .vm-dropdown-menu-item.vm-selected {
-  background-color: #eef2ff !important; 
-  color: #4f46e5 !important;            
-  font-weight: 600 !important;
-}
-
-/* ==========================================================================
-   KHỐI Ô NHẬP BIỂN SỐ XE (GHI ĐÈ KÍNH LÚP & CON TRỌ CHUỘT)
-   ========================================================================== */
-
-/* Ép lại Padding và Con trỏ chuột riêng cho thẻ Input nhập chữ */
-.vm-wrapper .vm-input-wrapper input {
-  padding: 0 16px 0 44px !important; /* Lùi trái 44px để không đè vào icon kính lúp */
-  cursor: text !important; /* Ép chuột biến thành hình chữ I thay vì hình bàn tay */
-}
-
-/* Căn chỉnh Icon kính lúp */
-.vm-wrapper .vm-search-icon {
-  position: absolute !important;
-  left: 16px !important;
-  top: 50% !important; 
-  transform: translateY(-50%) !important;
-  color: #9ca3af !important;
-  pointer-events: none !important; /* Cho phép click xuyên qua icon */
-  z-index: 10 !important;
-}
-
-/* ==========================================================================
-   BẢNG DỮ LIỆU (TABLE)
-   ========================================================================== */
-
-.vm-wrapper .vm-table-container {
-  border: 1px solid #f3f4f6;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.vm-wrapper .vm-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.vm-wrapper .vm-table th {
-  background-color: #f9fafb;
-  padding: 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #4b5563;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.vm-wrapper .vm-table td {
-  padding: 16px;
-  font-size: 14px;
-  color: #374151;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.vm-wrapper .vm-text-center {
-  text-align: center;
-}
-
-/* TRẠNG THÁI TRỐNG (EMPTY STATE) */
-.vm-wrapper .vm-empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 64px 0;
-  color: #9ca3af;
-}
-
-.vm-wrapper .vm-empty-icon {
-  background-color: #f9fafb;
-  padding: 16px;
-  border-radius: 50%;
-  margin-bottom: 16px;
-  color: #d1d5db;
-}
-
-.vm-wrapper .vm-empty-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #4b5563;
-  margin: 0 0 4px 0;
-}
-
-.vm-wrapper .vm-empty-subtitle {
-  font-size: 14px;
-  margin: 0;
-}
-
-/* ==========================================================================
-   FIX LỖI GLOBAL ANT DESIGN (CHO CÁC TRANG CƯ DÂN, CĂN HỘ,...)
-   ========================================================================== */
-
-/* Chống cắt xén chữ của Label */
-.ant-form-item-label {
-  overflow: visible !important;
-}
-
-/* Ép Label tự động co giãn chiều cao cho vừa vặn với nội dung */
-.ant-form-item-label > label {
-  height: auto !important;
-  line-height: normal !important;
-  padding-bottom: 4px !important;
->>>>>>> d9284e0d35d8d1126ce2902ffee6061353acce46
+  .details__vehicle table {
+    min-width: 640px;
+    white-space: nowrap;
+  }
 }

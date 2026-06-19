@@ -14,12 +14,13 @@ function Detail(){
   const fees = useSelector(state => state.feeDetailReducer.fees);
   const households = useSelector(state => state.householdDetailReducer.households.array);
   console.log(households);
-  // State để lưu tháng chọn
-  const [selectedMonth, setSelectedMonth] = useState(dayjs());  // Mặc định là tháng hiện tại
+  const [selectedMonth, setSelectedMonth] = useState(null);
+  const moneyFormatter = new Intl.NumberFormat("vi-VN");
+
   useEffect(() => {
     Promise.all([
-      dispatch(fetchFees(household_id)),      // Gọi API fetchFees
-      dispatch(fetchHouseholdDetail(household_id)) // Gọi API fetchHouseholdDetails
+      dispatch(fetchFees(household_id)),
+      dispatch(fetchHouseholdDetail(household_id))
     ])
     .catch((error) => {
       console.error("Error in one or both API calls:", error);
@@ -29,21 +30,20 @@ function Detail(){
     return <div>Đang tải dữ liệu...</div>;
   }
 
-  // Lọc các khoản phí theo tháng đã chọn
   const filteredFees = fees.array?.filter((fee) => {
-    if (!selectedMonth) return true; // Nếu không có tháng chọn, hiển thị tất cả
-    const feeMonth = dayjs(fee.payment_date);  // Giả sử fee.payment_date là ngày thanh toán
+    if (!selectedMonth) return true;
+    const feeMonth = dayjs(fee.payment_date);
     return feeMonth.month() === selectedMonth.month() && feeMonth.year() === selectedMonth.year();
-  });
+  }) || [];
 
-  const sortedFees = filteredFees?.sort((a, b) => {
+  const sortedFees = [...filteredFees].sort((a, b) => {
     if (a.status === 'Chưa thanh toán' && b.status === 'Đã thanh toán') {
-      return -1; // 'Chưa thanh toán' lên trước
+      return -1;
     }
     if (a.status === 'Đã thanh toán' && b.status === 'Chưa thanh toán') {
-      return 1; // 'Đã thanh toán' xuống sau
+      return 1;
     }
-    return 0; // Giữ nguyên thứ tự nếu đều giống nhau
+    return 0;
   });
     
   return (
@@ -57,8 +57,10 @@ function Detail(){
                 <DatePicker 
                   picker="month" 
                   value={selectedMonth} 
-                  onChange={(date) => setSelectedMonth(date || dayjs())} 
+                  onChange={(date) => setSelectedMonth(date)}
                   format="MM/YYYY"
+                  placeholder="Tất cả tháng"
+                  allowClear
                 />
                 </Form.Item>
               </div>
@@ -80,13 +82,20 @@ function Detail(){
               </tr>
             </thead>
             <tbody>
-              {sortedFees?.map((fee, index) => (
+              {sortedFees.length === 0 && (
+                <tr>
+                  <td colSpan={6} style={{ textAlign: "center", padding: "32px 0", color: "#999" }}>
+                    Không có khoản thu phù hợp
+                  </td>
+                </tr>
+              )}
+              {sortedFees.map((fee, index) => (
                 <tr key={index}>
                   <td>{fee.payment_name}</td>
-                  <td>{fee.count}</td>
-                  <td> {(fee.amount*fee.count).toLocaleString("vi-VN")} VNĐ</td>
+                  <td>{fee.count || 1}</td>
+                  <td> {moneyFormatter.format(Number(fee.amount || 0) * Number(fee.count || 1))} VNĐ</td>
                   <td>
-                    {fee.payment_date ? new Date(fee.payment_date).toLocaleDateString('vi-VN') : 'Chưa có ngày'}                                     
+                    {fee.payment_date ? dayjs(fee.payment_date).format("DD/MM/YYYY") : 'Chưa có ngày'}                                     
                   </td>
                   <td>
                     {fee.payment_date && new Date(fee.payment_date) <= new Date() ? 'Đến hạn thanh toán' : 'Chưa đến hạn thanh toán'}

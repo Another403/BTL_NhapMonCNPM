@@ -95,7 +95,8 @@
 /* =========================================
    BADGE TRẠNG THÁI & THẺ HTML CHUNG
 ========================================= */
-.details__fee span {
+.details__fee .status-paid,
+.details__fee .status-unpaid {
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 13px;
@@ -157,6 +158,12 @@
 }
 .btn-details.delete-icon:hover {
   background-color: #dc2626;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none !important;
 }
 
 /* =========================================
@@ -274,7 +281,32 @@
 }
 
 .details__fee .checkbox-btn {
-  top: 10px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  margin: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.details__fee .overall .ant-checkbox,
+.details__fee .overall .ant-checkbox-inner {
+  padding: 0 !important;
+  line-height: 1;
+}
+
+.details__fee .overall .ant-checkbox-inner {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.details__fee .overall .ant-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .details__fee .payment {

@@ -306,8 +306,10 @@ Right Side
   overflow: visible;
   flex-grow: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 .right .recent_updates:hover{
   box-shadow: none;
@@ -316,7 +318,16 @@ Right Side
    display: grid;
    grid-template-columns: 2.6rem auto;
    gap: 1rem;
-   padding-bottom: 1rem;
+   align-items: flex-start;
+}
+.right .recent_updates .update img{
+  width: 2.6rem;
+  height: 2.6rem;
+  object-fit: cover;
+}
+.right .recent_updates .message p{
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 .material-symbols-sharp{
   font-family: 'Material Symbols Sharp'!important;

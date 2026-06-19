@@ -7,18 +7,38 @@ function Table(){
   const totalPaymentData = useSelector((state) => state.feeManageReducer1.totalPayment) || [];
   const [showAll, setShowAll] = useState(false);
   const visibleData = showAll ? totalPaymentData : totalPaymentData.slice(0, 3);
+  const moneyFormatter = new Intl.NumberFormat("vi-VN");
+  const getPaidAmount = (item) => Math.max(Number(item.totalAmount || 0) - Number(item.unpaidAmount || 0), 0);
+  const getPercent = (paid, expected) => {
+    if (!expected) return 0;
+    return Math.min(Math.floor((paid / expected) * 100), 100);
+  };
 
   const [feeTypeStats, setFeeTypeStats] = useState([]);
+  const [feeTypeStatsLoading, setFeeTypeStatsLoading] = useState(true);
+  const [feeTypeStatsError, setFeeTypeStatsError] = useState("");
 
   useEffect(() => {
+    setFeeTypeStatsLoading(true);
+    setFeeTypeStatsError("");
+
     fetch("http://localhost:8386/payments/api/v1/feeTypeStats", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Không thể tải thống kê theo loại phí");
+        }
+        return res.json();
+      })
       .then(data => setFeeTypeStats(data.data ?? []))
-      .catch(() => {});
+      .catch((error) => {
+        setFeeTypeStats([]);
+        setFeeTypeStatsError(error.message);
+      })
+      .finally(() => setFeeTypeStatsLoading(false));
   }, []);
 
   return (
@@ -44,9 +64,9 @@ function Table(){
                 {visibleData.map((item) => (
                   <tr key={item.household_id}>
                     <td>{item.headName}</td>
-                    <td>{item.totalAmount.toLocaleString("vi-VN")} VNĐ</td>
-                    <td>{(item.totalAmount - item.unpaidAmount).toLocaleString("vi-VN")} VNĐ</td>
-                    <td>{item.totalAmount > 0 ? Math.floor(((item.totalAmount - item.unpaidAmount) / item.totalAmount) * 100) : 0}%</td>
+                    <td>{moneyFormatter.format(Number(item.totalAmount || 0))} VNĐ</td>
+                    <td>{moneyFormatter.format(getPaidAmount(item))} VNĐ</td>
+                    <td>{getPercent(getPaidAmount(item), Number(item.totalAmount || 0))}%</td>
                     <td>
                       {item.household_id
                         ? <Link to={`/detail/${item.household_id}`} className="primary">Chi tiết</Link>
@@ -80,16 +100,22 @@ function Table(){
                 </tr>
               </thead>
               <tbody>
-                {feeTypeStats.length === 0 && (
+                {feeTypeStatsLoading && (
+                  <tr><td colSpan={5} style={{ textAlign: "center", padding: "24px 0", color: "#999" }}>Đang tải dữ liệu...</td></tr>
+                )}
+                {!feeTypeStatsLoading && feeTypeStatsError && (
+                  <tr><td colSpan={5} style={{ textAlign: "center", padding: "24px 0", color: "#ef4444" }}>{feeTypeStatsError}</td></tr>
+                )}
+                {!feeTypeStatsLoading && !feeTypeStatsError && feeTypeStats.length === 0 && (
                   <tr><td colSpan={5} style={{ textAlign: "center", padding: "24px 0", color: "#999" }}>Chưa có dữ liệu</td></tr>
                 )}
-                {feeTypeStats.map((item) => (
+                {!feeTypeStatsLoading && !feeTypeStatsError && feeTypeStats.map((item) => (
                   <tr key={item.feeType}>
                     <td>{item.label}</td>
-                    <td>{item.totalAmount.toLocaleString("vi-VN")} VNĐ</td>
-                    <td>{item.paidAmount.toLocaleString("vi-VN")} VNĐ</td>
-                    <td>{item.unpaidAmount.toLocaleString("vi-VN")} VNĐ</td>
-                    <td>{item.totalAmount > 0 ? Math.floor((item.paidAmount / item.totalAmount) * 100) : 0}%</td>
+                    <td>{moneyFormatter.format(Number(item.totalAmount || 0))} VNĐ</td>
+                    <td>{moneyFormatter.format(Number(item.paidAmount || 0))} VNĐ</td>
+                    <td>{moneyFormatter.format(Number(item.unpaidAmount || 0))} VNĐ</td>
+                    <td>{getPercent(Number(item.paidAmount || 0), Number(item.totalAmount || 0))}%</td>
                   </tr>
                 ))}
               </tbody>

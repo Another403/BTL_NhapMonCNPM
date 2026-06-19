@@ -54,16 +54,16 @@ module.exports.index = async (req, res) => {
       if (toDate) filter.payment_date.$lte = toDate;
     }
 
-    let pagination = { currentPage: 1, limitItem: 8 };
+    let pagination = { currentPage: 1, limitItem: req.query.limit ? parseInt(req.query.limit) : 8 };
     if (req.query.page) {
       pagination.currentPage = parseInt(req.query.page);
     }
     const skip = (pagination.currentPage - 1) * pagination.limitItem;
     pagination.totalItems = await Payment.countDocuments(filter);
     pagination.totalPage = Math.ceil(pagination.totalItems / pagination.limitItem);
-    pagination.limitItem = req.query.limit ? parseInt(req.query.limit) : 8;
+    const sort = req.query.sort === 'recent' ? { bill_time: -1, payment_date: -1, _id: -1 } : {};
 
-    const payments = await Payment.find(filter).lean().skip(skip).limit(pagination.limitItem);
+    const payments = await Payment.find(filter).lean().sort(sort).skip(skip).limit(pagination.limitItem);
 
     const householdIds = [...new Set(payments.map(p => p.household_id.toString()))];
     const householdsFound = await Household.find({ _id: { $in: householdIds } }).lean();
@@ -240,7 +240,7 @@ module.exports.getFeeTypeStats = async (req, res) => {
           as: 'fee'
         }
       },
-      { $unwind: { path: '$fee', preserveNullAndEmpty: true } },
+      { $unwind: { path: '$fee', preserveNullAndEmptyArrays: true } },
       {
         $group: {
           _id: { $ifNull: ['$fee.feeType', 'unknown'] },

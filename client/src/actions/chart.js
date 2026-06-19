@@ -8,7 +8,7 @@ export const setPayments = (payments) => ({
 export const fetchPayments = () => {
   return (dispatch) => {
     axios
-      .get("http://localhost:8386/payments/api/v1/payments?limit=3&status=done")
+      .get("http://localhost:8386/payments/api/v1/payments?limit=3&status=done&sort=recent")
       .then((response) => {
         dispatch(setPayments(response.data));
       })

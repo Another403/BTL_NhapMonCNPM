@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changePassword } from "../../actions";
 import { message } from "antd";
+import { FcOk } from "react-icons/fc";
 
 function Password() {
   const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const handleOldPassword = (e) => {
@@ -16,7 +19,6 @@ function Password() {
 
   const minLength = /.{8,}/;
   const hasUpperCase = /[A-Z]/;
-  const hasLowerCase = /[a-z]/;
   const hasLowerCase = /[a-z]/;
   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
   const hasNumber = /\d/;
@@ -46,9 +48,10 @@ function Password() {
 
   const handleNewPassword = (e) => {
     const value = e.target.value;
+    const isValid = validateNewPassword(value);
     setNewPassword(value);
-    setIsNewValid(validateNewPassword(value));
-    setCheckClass(validateNewPassword(value) ? "correct" : "incorrect");
+    setIsNewValid(isValid);
+    setCheckClass(isValid ? "correct" : "incorrect");
   }
 
   const [check, setCheck] = useState(false);
@@ -56,10 +59,8 @@ function Password() {
   const handleConfirmedPassword = (e) => {
     e.preventDefault();
     const value = e.target.value;
-    if (value === newPassword) {
-      setCheck(true);
-    }
-    console.log(value);
+    setConfirmPassword(value);
+    setCheck(value === newPassword);
   }
 
   const dispatch = useDispatch();
