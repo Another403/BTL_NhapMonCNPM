@@ -1,181 +1,257 @@
-.details__vehicle{
+.details__vehicle {
   position: relative;
   width: 100%;
   padding: 20px;
-  display: grid;
-  grid-gap: 30px;
 }
 
 .details__vehicle .recentCt {
   position: relative;
-  display: grid;
   min-height: 400px;
   background: var(--white);
-  padding: 20px;
+  padding: 28px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
-  grid-template-rows: 100px 1fr;
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .details__vehicle .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 72px;
 }
 
-.details__vehicle .cardHeader .all-button{
-  display: flex;
+.details__vehicle .cardHeader h2 {
+  color: var(--blue);
+  font-size: 28px;
+  margin: 4px 0 0;
 }
 
-.details__vehicle .cardHeader .all-button > .btn{
-  margin: 5px;
+.details__vehicle .btn {
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 14px;
+}
+
+.details__vehicle .filter_options {
+  margin-bottom: 64px;
+}
+
+.details__vehicle .vehicle-filter-row {
+  align-items: flex-start;
+}
+
+.details__vehicle .filter_options .ant-form-item {
+  width: min(100%, 455px);
+  margin-bottom: 0;
+}
+
+.details__vehicle .filter_options .ant-select,
+.details__vehicle .filter_options .ant-input-affix-wrapper,
+.details__vehicle .filter_options .ant-input {
+  width: 100%;
+  max-width: 455px;
+}
+
+.details__vehicle .filter_options .ant-select-selector,
+.details__vehicle .filter_options .ant-input-affix-wrapper,
+.details__vehicle .filter_options .ant-input {
+  min-height: 40px;
+  border-radius: 8px;
+}
+
+.details__vehicle .filter_options .ant-select-selection-placeholder,
+.details__vehicle .filter_options .ant-select-selection-item {
+  padding: 0;
+}
+
+.details__vehicle .ant-form-item-label {
+  overflow: visible;
+}
+
+.details__vehicle .ant-form-item-label > label {
+  color: var(--black1);
+  font-size: 16px;
+  height: auto;
+  position: static !important;
+}
+
+.details__vehicle .vehicle-table-wrap {
+  width: 100%;
+  overflow-x: auto;
 }
 
 .details__vehicle table {
   width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
-  margin-top: 10px;
-  z-index: 1;
 }
+
 .details__vehicle table thead td {
   font-weight: 700;
 }
+
 .details__vehicle .recentCt table tr {
   color: var(--black1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-.details__vehicle .recentCt  table tr:last-child {
+
+.details__vehicle .recentCt table tr:last-child {
   border-bottom: none;
 }
-.details__vehicle .recentCt table tbody tr:hover {
+
+.details__vehicle .recentCt table tbody tr:not(.vehicle-empty-row):hover {
   background: var(--blue);
   color: var(--white);
 }
+
 .details__vehicle .recentCt table tr td {
-  padding: 10px;
-}
-.details__vehicle .recentCt table tr td:last-child {
-  text-align: end;
+  padding: 12px 10px;
 }
 
-.details__vehicle .recentCt .overall tr td:last-child {
+.details__vehicle .recentCt table tr td:nth-child(2),
+.details__vehicle .recentCt table tr td:nth-child(3),
+.details__vehicle .recentCt table tr td:nth-child(4),
+.details__vehicle .recentCt table tr td:nth-child(5) {
   text-align: center;
 }
 
-.details__vehicle .recentCt table tr td:nth-child(2) {
+.details__vehicle .vehicle-empty {
+  color: #999;
+  padding: 48px 0;
   text-align: center;
 }
-.details__vehicle .recentCt table tr td:nth-child(3) {
-  text-align: center;
-}
-.details__vehicle .recentCt table tr td:nth-child(4) {
-  margin: 5px 0;
-  text-align: center;
-}
-span{
-  padding: 5px;
-  border-radius: 10px;
+
+.details__vehicle .vehicle-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
-.status-paid{
-  background-color: #7DB927;
-  color: #fff;
-}
-
-.status-unpaid{
-  background-color: #B6261D;
-  color: #fff;
-}
-
-.btn{
-  cursor: pointer;
-}
-
-.btn-details{
-  padding: 10px;
-  margin-left: 10px;
-  border-radius: 10px;
-  background-color: #8de02c;
+.details__vehicle .btn-details {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #7db927;
   color: #fff;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ant-form-item-label {
-  overflow: visible !important;
+.details__vehicle .btn-details.delete-icon {
+  background-color: #b6261d;
 }
 
-.btn-details.delete-icon{
-  background-color: #B6261D;
-  padding: 5px;
+.vehicle-modal .ant-modal-content {
+  width: 100% !important;
+  border-radius: 8px;
 }
 
-/* styles.css hoặc trong <style> của bạn */
-.checkbox-group {
-  display: flex;
-  flex-direction: column; /* Xếp các checkbox theo chiều dọc */
+.vehicle-modal .ant-modal-body {
+  padding-top: 8px;
 }
 
-.checkbox-group .ant-checkbox-wrapper {
-  margin-bottom: 8px; /* Khoảng cách giữa các checkbox */
+.vehicle-modal .ant-form-item {
+  margin-bottom: 18px;
 }
 
-.ant-select-multiple .ant-select-selection-item{
-  height: auto;
+.vehicle-modal .ant-form-item-label {
+  overflow: visible;
+  padding-bottom: 6px;
 }
 
-.ant-select-selection-item{
-  padding: 1px;
+.vehicle-modal .ant-form-item-label > label {
+  color: var(--black1);
+  display: inline-flex;
+  height: auto !important;
+  line-height: 1.4;
+  position: static !important;
 }
 
-.gutter-row{
-  display: flex;
-  flex-direction: column;
+.vehicle-modal .ant-form-item-required::before {
+  line-height: 1;
+  margin-inline-end: 4px;
+  position: static;
 }
 
-.filter_fee{
-  height: 130px;
-}
-
-.ant-picker{
-  padding: 0px 11px;
-  width: 90%;
-}
-
-label{
-  position: relative!important;
-}
-
-.checkbox-btn{
-  top: 10px;
-}
-
-.payment{
+.vehicle-modal .ant-select,
+.vehicle-modal .ant-input,
+.vehicle-modal .ant-input-affix-wrapper {
   width: 100%;
-  padding: 10px;
+  max-width: none;
 }
 
-.payment > thead > td{
-  font-weight: 600;
+.vehicle-modal .ant-select-selector,
+.vehicle-modal .ant-input,
+.vehicle-modal .ant-input-affix-wrapper {
+  min-height: 40px;
+  border-radius: 8px;
 }
 
-.payment > thead > td:last-child{
-  text-align: end;
+.vehicle-modal .ant-select-selection-placeholder,
+.vehicle-modal .ant-select-selection-item {
+  padding: 0;
 }
 
-.payment > tbody > tr > td:last-child{
-  text-align: end;
+.vehicle-modal .ant-radio-wrapper .ant-radio,
+.vehicle-modal .ant-radio-wrapper .ant-radio-inner {
+  padding: 0;
+  border-radius: 50%;
 }
 
-table td{
-  padding: 10px;
+.vehicle-modal .ant-radio-wrapper > span:last-child {
+  padding: 0 0 0 8px;
+  border-radius: 0;
 }
 
-.ant-modal-content{
-  width: 130%;
+.vehicle-modal-actions .ant-form-item-control-input-content {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
 }
 
-hr{
-  border-top: 0.25px solid #0000002b;
-}
+@media (max-width: 768px) {
+  .details__vehicle {
+    padding: 12px;
+  }
 
+  .details__vehicle .recentCt {
+    padding: 18px 12px;
+  }
+
+  .details__vehicle .cardHeader {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .details__vehicle .cardHeader h2 {
+    font-size: 24px;
+  }
+
+  .details__vehicle .filter_options {
+    margin-bottom: 28px;
+  }
+
+  .details__vehicle .filter_options .ant-select,
+  .details__vehicle .filter_options .ant-input-affix-wrapper,
+  .details__vehicle .filter_options .ant-input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .details__vehicle table {
+    min-width: 640px;
+    white-space: nowrap;
+  }
+}

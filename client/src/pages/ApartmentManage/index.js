@@ -3,7 +3,8 @@ import { Form, Select, Row, Col, Modal, Input, InputNumber, notification, Tag, B
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import "../DashBoard/style.css";
+import "../ResidentManage/style.css";
+import "./style.css";
 
 const BASE = "http://localhost:8386";
 
@@ -111,17 +112,17 @@ function ApartmentManage() {
 
   return (
     <>
-      <div className="details page2">
+      <div className="details page2 apartment-page">
         <div className="recentCt page2">
           <div className="cardHeader">
             <h2>Quản lý căn hộ</h2>
             <button className="btn" onClick={() => setAddVisible(true)}>Thêm căn hộ</button>
           </div>
 
-          <div className="household">
+          <div className="apartment-filters">
             <Form layout="vertical">
-              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col span={6}>
+              <Row className="apartment-filter-row" gutter={[48, 16]}>
+                <Col xs={24} md={8}>
                   <Form.Item label="Tầng">
                     <Select
                       allowClear
@@ -131,7 +132,7 @@ function ApartmentManage() {
                     />
                   </Form.Item>
                 </Col>
-                <Col span={6}>
+                <Col xs={24} md={8}>
                   <Form.Item label="Trạng thái">
                     <Select
                       allowClear
@@ -182,20 +183,22 @@ function ApartmentManage() {
                       {apt.household ? "Đã có hộ" : "Trống"}
                     </Tag>
                   </td>
-                  <td style={{ display: "flex", gap: 8 }}>
-                    <Button
-                      icon={<EditOutlined />}
-                      size="small"
-                      onClick={() => openEdit(apt)}
-                    />
-                    <Button
-                      danger
-                      icon={<DeleteOutlined />}
-                      size="small"
-                      disabled={!!apt.household}
-                      title={apt.household ? "Không thể xóa căn hộ đang có hộ ở" : "Xóa"}
-                      onClick={() => handleDelete(apt)}
-                    />
+                  <td>
+                    <div className="apartment-actions">
+                      <Button
+                        icon={<EditOutlined />}
+                        size="small"
+                        onClick={() => openEdit(apt)}
+                      />
+                      <Button
+                        danger
+                        icon={<DeleteOutlined />}
+                        size="small"
+                        disabled={!!apt.household}
+                        title={apt.household ? "Không thể xóa căn hộ đang có hộ ở" : "Xóa"}
+                        onClick={() => handleDelete(apt)}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -213,6 +216,8 @@ function ApartmentManage() {
         okText="Thêm"
         cancelText="Hủy"
         centered
+        width={560}
+        className="apartment-modal"
       >
         <Form form={addForm} layout="vertical" style={{ marginTop: 16 }}>
           <Form.Item
@@ -245,6 +250,8 @@ function ApartmentManage() {
         okText="Lưu"
         cancelText="Hủy"
         centered
+        width={560}
+        className="apartment-modal"
       >
         <Form form={editForm} layout="vertical" style={{ marginTop: 16 }}>
           <Form.Item

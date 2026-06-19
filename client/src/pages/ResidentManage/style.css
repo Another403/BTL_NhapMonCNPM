@@ -1,0 +1,643 @@
+.cardBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+
+.cardBox .card {
+  position: relative;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardBox .card .numbers {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: var(--blue);
+}
+
+.cardBox .card .cardName {
+  color: var(--black2);
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.cardBox .card .iconBx {
+  font-size: 3.5rem;
+  color: var(--black2);
+}
+
+.cardBox .card:hover {
+  background: var(--blue);
+}
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBx {
+  color: var(--white);
+}
+
+.details {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  grid-gap: 30px;
+  /* margin-top: 10px; */
+}
+
+/* 2. Thêm chống tràn cho khối chứa Bảng thống kê */
+.details .recentCt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max-content;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  
+  /* THÊM 2 DÒNG NÀY ĐỂ ÉP KHỐI NÀY KHÔNG ĐƯỢC PHÁ GRID */
+  min-width: 0; 
+  overflow-x: auto; 
+}
+
+/* 3. Thêm chống tràn cho khối Cập nhật gần đây */
+.recentCustomers {
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  padding: 20px;
+  background: var(--white);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  
+  /* THÊM DÒNG NÀY */
+  min-width: 0; 
+}
+
+.details .recentCt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: max-content;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.details .recentCt.page2 {
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  width: 100%;
+  grid-column: span 2;
+}
+
+.details .cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cardHeader h2 {
+  font-weight: 700!important;
+  color: var(--blue);
+}
+.cardHeader .btn {
+  position: relative;
+  padding: 5px 10px;
+  background: var(--blue);
+  text-decoration: none;
+  color: var(--white);
+  border-radius: 6px;
+}
+
+.details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  overflow: visible;
+  height: fit-content;
+}
+.details table thead td {
+  font-weight: 700;
+}
+.details .recentCt table tr {
+  color: var(--black1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.details .recentCt  table tr:last-child {
+  border-bottom: none;
+}
+.details .recentCt table tbody tr:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+.details .recentCt table tr td {
+  padding: 10px;
+}
+.details .recentCt table tr td:last-child {
+  text-align: center;
+}
+.details .recentCt table tr td:nth-child(1) {
+  text-align: center;
+}
+.details .recentCt table tr td:nth-child(2) {
+  text-align: center;
+}
+.details .recentCt table tr td:nth-child(3) {
+  text-align: center;
+}
+.details .recentCt table tr td:nth-child(4) {
+  text-align: center;
+}
+.details .recentCt table tr td:nth-child(5) {
+  text-align: center;
+}
+.details .recentCt table tr td:nth-child(6) {
+  text-align: center;
+}
+/*=========================status =============================*/
+
+span{
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.permanent_residence-status{
+  background-color: #b97527;
+  color: #fff;
+  text-align: center;
+}
+
+.temporary_residence-status{
+  background-color: #B6261D;
+  color: #fff;
+  text-align: center;
+}
+
+.status {
+  border: 1px solid gray;
+  text-align: center;
+  background-color: #fff;
+  color: black;
+}
+
+
+.recentCustomers {
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  padding: 20px;
+  background: var(--white);
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+.recentCustomers .imgBx {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.recentCustomers .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.recentCustomers table tr td {
+  padding: 12px 10px;
+}
+.recentCustomers table tr td h4 {
+  font-size: 18px;
+  font-weight: 550;
+  line-height: 1.2rem;
+  font-family: Calibri!important;
+}
+.recentCustomers table tr td h4 span {
+  font-size: 14px;
+  color: var(--black2);
+}
+.recentCustomers table tr:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+.recentCustomers table tr:hover td h4 span {
+  color: var(--white);
+}
+
+/*===================== Button =====================================*/
+ button.submitBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100px;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: #2a2185;
+  transition: all 0.3s linear;
+  cursor: pointer;
+ }
+
+ button.submitBtn:hover{
+  background-color: #2a21c1;
+ }
+
+ .components-table-demo-control-bar .ant-form-item {
+  margin-right: 16px;
+  margin-bottom: 8px;
+}
+
+label.ant-radio-wrapper{
+  position: relative!important;
+}
+.ant-picker .ant-picker-separator{
+  display: initial;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-radio-wrapper {
+  display: inline !important;
+}
+.description-container{
+  grid-template-columns: 1fr;
+  padding: 0px 150px;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-card:not(.ant-card-bordered) {
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+.filter-person{
+  min-height: fit-content;
+  padding: 10px 0;
+}
+.ant-select-multiple .ant-select-selection-item{
+  height: auto;
+}
+
+.ant-select-selection-item{
+  padding: 1px;
+}
+
+.gutter-row{
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-picker{
+  padding: 0px 11px;
+  width: 90%;
+}
+
+label{
+  position: relative!important;
+}
+.ant-form {
+ min-height: fit-content;
+ padding: 10px;
+}
+.ant-row {
+  justify-content: space-between;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-form-vertical .ant-form-item:not(.ant-form-item-horizontal) .ant-form-item-label, :where(.css-dev-only-do-not-override-1x0dypw).ant-form-vertical .ant-form-item:not(.ant-form-item-horizontal) .ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-1x0dypw).ant-form-vertical .ant-form-item:not(.ant-form-item-horizontal) .ant-col-xl-24.ant-form-item-label {
+    padding: 0;
+}
+.household{
+  height: fit-content;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-form-item .ant-form-item-control-input {
+  width: fit-content;
+}
+.ant-form {
+  min-height: fit-content;
+  padding: 10px;
+  width: 100% !important;
+}
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-form-item .ant-form-item-control-input-content {
+  min-width: 150px !important;
+}
+.components-table-demo-control-bar .ant-form-item {
+  margin-right: 16px !important;
+  margin-bottom: 8px !important;
+}
+
+.change-head-modal .ant-modal-body {
+  padding-top: 8px;
+}
+
+.change-head-modal .change-head-form {
+  min-height: auto;
+  padding: 0;
+  width: 100% !important;
+}
+
+.change-head-modal .ant-form-item {
+  margin-bottom: 20px;
+}
+
+.change-head-modal .ant-form-item:last-child {
+  margin-bottom: 0;
+}
+
+.change-head-modal .ant-form-item-row {
+  display: block;
+}
+
+.change-head-modal .ant-form-item-label {
+  overflow: visible;
+  padding: 0 0 8px !important;
+  text-align: left;
+}
+
+.change-head-modal .ant-form-item-label > label {
+  height: auto;
+  line-height: 1.4;
+  position: static !important;
+}
+
+.change-head-modal .ant-form-item-control,
+.change-head-modal .ant-form-item-control-input,
+.change-head-modal .ant-form-item-control-input-content,
+.change-head-modal .ant-select {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.change-head-modal .ant-select-selector {
+  border-radius: 8px;
+  min-height: 40px;
+}
+
+.change-head-modal .ant-select-selection-item,
+.change-head-modal .ant-select-selection-placeholder {
+  padding: 0;
+}
+
+.change-head-modal .ant-modal-footer {
+  margin-top: 24px;
+}
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper table tr th.ant-table-selection-column, :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper table tr td.ant-table-selection-column, :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper .ant-table-selection-column {
+  padding-top: 40px;
+}
+.recentCt ul.ant-pagination {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 0px !important;
+    padding-bottom: 20px !important;
+    transform: none !important;
+    clear: both !important;
+}
+
+.recentCt ul.ant-pagination li {
+    position: relative !important;
+    display: inline-block !important;
+    margin: 0 4px !important;
+    width: auto !important;
+    border-radius: 4px !important;
+}
+
+.resident-page {
+  grid-template-columns: 1fr;
+}
+
+.resident-page .recentCt.page2 {
+  display: block;
+  grid-column: span 1;
+  min-height: 500px;
+  padding: 28px 36px;
+  overflow-x: visible;
+}
+
+.resident-page .cardHeader {
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.resident-page .cardHeader h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 4px 0 0;
+}
+
+.resident-page .cardHeader .btn {
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 14px;
+}
+
+.resident-page .resident-filters {
+  margin-bottom: 42px;
+  padding: 0;
+}
+
+.resident-page .resident-filters .ant-form {
+  padding: 0;
+}
+
+.resident-page .resident-filters .ant-row {
+  justify-content: space-between;
+}
+
+.resident-page .resident-filters .ant-form-item {
+  width: min(100%, 240px);
+  margin-bottom: 0;
+}
+
+.resident-page .resident-filters .ant-form-item-label {
+  overflow: visible;
+  padding-bottom: 8px !important;
+}
+
+.resident-page .resident-filters .ant-form-item-label > label {
+  color: var(--black1);
+  font-size: 16px;
+  height: auto;
+  line-height: 1.4;
+  position: static !important;
+}
+
+.resident-page .resident-filters .ant-form-item-control-input,
+.resident-page .resident-filters .ant-form-item-control-input-content {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.resident-page .resident-filters .ant-select,
+.resident-page .resident-filters .ant-input {
+  width: 100%;
+}
+
+.resident-page .resident-filters .ant-select-selector,
+.resident-page .resident-filters .ant-input {
+  min-height: 40px;
+}
+
+.resident-page .resident-filters .ant-select-selector,
+.resident-page .resident-filters .ant-input {
+  border-radius: 8px;
+}
+
+.resident-page .resident-filters .ant-select-selection-item,
+.resident-page .resident-filters .ant-select-selection-placeholder {
+  padding: 0;
+}
+
+.resident-page table {
+  min-width: 920px;
+  margin-top: 0;
+}
+
+.resident-page .resident-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.resident-page .resident-actions .anticon {
+  border-radius: 0;
+  color: #1f2937;
+  font-size: 16px;
+  padding: 0;
+}
+
+.resident-page .recentCt table tbody tr:hover .resident-actions .anticon {
+  color: var(--white);
+}
+
+.resident-page .ant-tag {
+  border-radius: 6px;
+  padding: 2px 10px;
+}
+
+.resident-page .resident-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+@media (max-width: 1024px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .details {
+    grid-template-columns: 1fr;
+  }
+  .details .recentCt.page2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 10px !important;
+    grid-gap: 10px !important;
+  }
+
+  .cardBox .card {
+    padding: 16px !important;
+  }
+
+  .cardBox .card .numbers {
+    font-size: 1.8rem !important;
+  }
+
+  .details {
+    grid-template-columns: 1fr !important;
+    padding: 10px !important;
+    grid-gap: 15px !important;
+  }
+
+  .details .recentCt {
+    overflow-x: auto !important;
+  }
+
+  .details table {
+    min-width: 420px !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+
+  .details .recentCt.page2 {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 15px !important;
+  }
+
+  .resident-page .recentCt.page2 {
+    padding: 18px 12px !important;
+    overflow-x: auto !important;
+  }
+
+  .resident-page .cardHeader {
+    align-items: stretch;
+    flex-direction: column;
+    margin-bottom: 22px;
+  }
+
+  .resident-page .cardHeader h2 {
+    font-size: 24px;
+  }
+
+  .resident-page .resident-filters {
+    margin-bottom: 28px;
+  }
+
+  .resident-page .resident-filters .ant-form-item {
+    width: 100%;
+  }
+
+  .resident-page table {
+    min-width: 820px !important;
+    white-space: nowrap !important;
+  }
+
+  .recentCustomers {
+    min-height: auto !important;
+  }
+
+  .description-container {
+    padding: 0 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .cardBox .card .numbers {
+    font-size: 1.5rem !important;
+  }
+
+  .cardBox .card .iconBx {
+    font-size: 2.5rem !important;
+  }
+}

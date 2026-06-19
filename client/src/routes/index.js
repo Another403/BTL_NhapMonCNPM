@@ -1,5 +1,6 @@
 import DashBoard from "../pages/DashBoard";
-import Register from "../pages/DashBoard/Register";
+import ResidentManage from "../pages/ResidentManage/ResidentList";
+import Register from "../pages/ResidentManage/Register";
 import FeeMange from "../pages/FeeMange";
 import Detail from "../pages/FeeMange/Detail";
 import FeeList from "../pages/FeeMange/FeeList";
@@ -7,12 +8,12 @@ import LayoutDefault from "../pages/Layout/LayoutDefault";
 import LogIn from "../pages/LogIn/LogIn";
 import Password from "../pages/Password";
 import Stats from "../pages/Stats";
-import HouseholdInfo from "../pages/DashBoard/HouseholdInfo";
-import PersonDetail from "../pages/DashBoard/PersonDetail";
+import HouseholdInfo from "../pages/ResidentManage/HouseholdInfo";
+import PersonDetail from "../pages/ResidentManage/PersonDetail";
 import TransactionHistory from "../pages/FeeMange/TransactionHistory";
 import { Navigate } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
-import ResidentList from "../pages/DashBoard/ResidentList";
+import ResidentList from "../pages/ResidentManage/ResidentList";
 import VehicleMange from "../pages/VehicleManage";
 import ApartmentManage from "../pages/ApartmentManage";
 
@@ -32,6 +33,10 @@ export const routes = [
       {
         path: "dashboard",
         element: <DashBoard/>
+      },
+      {
+        path: "resident_manage",
+        element: <ResidentManage/> 
       },
       {
         path: "view_all",

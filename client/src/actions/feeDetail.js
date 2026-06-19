@@ -15,9 +15,9 @@ export const setDoneFees = (fees) => ({
 
 export const fetchFees = (household_id) => {
   return (dispatch) => {
-    axios.get(`http://localhost:8386/payments/api/v1/payments?household_id=${household_id}`)  
+    axios.get(`http://localhost:8386/payments/api/v1/payments?household_id=${household_id}&limit=1000`)  
       .then(response => {
-        setFees(dispatch(setFees(response.data)));
+        dispatch(setFees(response.data));
       })
       .catch(error => {
         console.error("Error fetching fees data:", error);
@@ -27,9 +27,9 @@ export const fetchFees = (household_id) => {
 
 export const fetchDoneFees = (household_id) => {
   return (dispatch) => {
-    axios.get(`http://localhost:8386/payments/api/v1/payments?household_id=${household_id}&status=done`)  
+    axios.get(`http://localhost:8386/payments/api/v1/payments?household_id=${household_id}&status=done&limit=1000`)  
       .then(response => {
-        setDoneFees(dispatch(setFees(response.data)));
+        dispatch(setDoneFees(response.data));
       })
       .catch(error => {
         console.error("Error fetching fees data:", error);

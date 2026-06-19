@@ -1,7 +1,7 @@
 import "./assets/css/style.scss"
 import "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
 import customer01 from "./assets/imgs/customer01.jpg"
-import { Outlet, Link, useNavigate, useLocation } from "react-router-dom"
+import { Outlet, Link, useNavigate, useLocation, NavLink } from "react-router-dom"
 import { useRef, useEffect } from "react"
 import { checkAuth } from "../../actions"
 
@@ -11,7 +11,7 @@ function LayoutDefault(){
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
-    const navActive = (paths) => paths.some(p => pathname.startsWith(p)) ? "hovered" : "";
+    const navActive = (paths) => paths.some(p => pathname.startsWith(p)) ? "active" : "";
 
     useEffect(() => {
         if(checkAuth())
@@ -37,74 +37,82 @@ function LayoutDefault(){
           <div className="layout-default__sidebar--container">
             <div className="layout-default__sidebar--navigation" ref={navigationRef}>
               <ul>
-              <li>
-                    <Link to="dashboard">
+              <li className="sidebar-brand">
+                <div className="brand-container">
+                    <div className="brand-left">
                         <span className="icon">
-                            <ion-icon name="business-sharp"></ion-icon>
+                            <span class="icon-building"><ion-icon name="business-outline"></ion-icon></span>
+                            <span class="icon-menu" onClick={handleClick}><ion-icon name="menu-outline"></ion-icon></span>
                         </span>
                         <span className="title">BLUEMOON</span>
-                    </Link>
-                </li>
+                    </div>
+                    
+                    <div className="brand-right" onClick={handleClick}>
+                        <ion-icon name="menu-outline"></ion-icon>
+                    </div>
+                </div>
+            </li>
 
-                {/* <li>
-                    <Link to="dashboard">
+                {/* Menu Trang chủ */}
+                <li className={pathname === "/dashboard" ? "active" : ""}>
+                    <NavLink to="/dashboard" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
-                            <ion-icon name="home-outline"></ion-icon>
+                            <ion-icon name="grid-outline"></ion-icon>
                         </span>
                         <span className="title">Trang chủ</span>
-                    </Link>
-                </li> */}
+                    </NavLink>
+                </li>
 
-                <li className={navActive(["/dashboard", "/register_resident", "/view_all", "/household_infor", "/person_detail"])}>
-                    <Link to="/dashboard">
+                <li className={navActive(["/resident_manage", "/register_resident", "/view_all", "/household_infor", "/person_detail"])}>
+                    <NavLink to="/resident_manage" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
                         <span className="title">Quản lý cư dân</span>
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className={navActive(["/apartment_manage"])}>
-                    <Link to="/apartment_manage">
+                    <NavLink to="/apartment_manage" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span className="title">Quản lý căn hộ</span>
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className={navActive(["/vehicle_manage"])}>
-                    <Link to="/vehicle_manage">
+                    <NavLink to="/vehicle_manage" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
                             <ion-icon name="car-sport-outline"></ion-icon>
                         </span>
                         <span className="title">Quản lý phương tiện</span>
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className={navActive(["/fee_manage", "/fee_list", "/transactionHis", "/detail"])}>
-                    <Link to="/fee_manage">
+                    <NavLink to="/fee_manage" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
                             <ion-icon name="cash-outline"></ion-icon>
                         </span>
                         <span className="title">Quản lý thu phí chung cư</span>
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className={navActive(["/stats"])}>
-                    <Link to="/stats">
+                    <NavLink to="/stats" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
                             <ion-icon name="stats-chart-outline"></ion-icon>
                         </span>
                         <span className="title">Thống kê</span>
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className={navActive(["/password"])}>
-                    <Link to="/password">
+                    <NavLink to="/password" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
                         <span className="title">Đổi mật khẩu</span>
-                    </Link>
+                    </NavLink>
                 </li>
 
-                <li>
+                <li className="sidebar-logout-item">
                     <button type="button" onClick={logout} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center' }}>
                         <span className="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -119,7 +127,8 @@ function LayoutDefault(){
             {/* ----------------------Main ---------------------- */}
         <div className="layout-default__main" ref={mainRef}>
             <div className="layout-default__main--topbar">
-                <div className="layout-default__main--toggle" onClick={handleClick}>
+                {/* Thêm style để làm trong suốt và không cho click, nhằm giữ nguyên bố cục Topbar */}
+                <div className="layout-default__main--toggle" style={{ opacity: 0, pointerEvents: 'none' }}>
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 

@@ -1,0 +1,189 @@
+.apartment-page {
+  grid-template-columns: 1fr;
+}
+
+.apartment-page .recentCt.page2 {
+  display: block;
+  min-height: 500px;
+  padding: 28px;
+  overflow-x: visible;
+}
+
+.apartment-page .cardHeader {
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.apartment-page .cardHeader h2 {
+  color: var(--blue);
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 4px 0 0;
+}
+
+.apartment-page .cardHeader .btn {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 14px;
+}
+
+.apartment-page .apartment-filters {
+  margin-bottom: 48px;
+}
+
+.apartment-page .apartment-filters .ant-form {
+  padding: 0;
+}
+
+.apartment-page .apartment-filter-row {
+  justify-content: space-between;
+}
+
+.apartment-page .apartment-filters .ant-form-item {
+  width: min(100%, 260px);
+  margin-bottom: 0;
+}
+
+.apartment-page .apartment-filters .ant-form-item-label {
+  overflow: visible;
+  padding-bottom: 8px !important;
+}
+
+.apartment-page .apartment-filters .ant-form-item-label > label {
+  color: var(--black1);
+  font-size: 16px;
+  height: auto;
+  line-height: 1.4;
+  position: static !important;
+}
+
+.apartment-page .apartment-filters .ant-form-item-control-input,
+.apartment-page .apartment-filters .ant-form-item-control-input-content {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.apartment-page .apartment-filters .ant-select {
+  width: 100%;
+}
+
+.apartment-page .apartment-filters .ant-select-selector {
+  min-height: 40px;
+  border-radius: 8px;
+}
+
+.apartment-page .apartment-filters .ant-select-selection-item,
+.apartment-page .apartment-filters .ant-select-selection-placeholder {
+  padding: 0;
+}
+
+.apartment-page table {
+  min-width: 760px;
+  margin-top: 0;
+}
+
+.apartment-page .apartment-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.apartment-page .ant-tag {
+  padding: 2px 10px;
+  border-radius: 6px;
+}
+
+.apartment-modal .ant-modal-content {
+  width: 100% !important;
+  border-radius: 8px;
+}
+
+.apartment-modal .ant-modal-body {
+  padding-top: 8px;
+}
+
+.apartment-modal .ant-form {
+  padding: 0;
+}
+
+.apartment-modal .ant-form-item {
+  margin-bottom: 18px;
+}
+
+.apartment-modal .ant-form-item-label {
+  overflow: visible;
+  padding-bottom: 6px !important;
+}
+
+.apartment-modal .ant-form-item-label > label {
+  color: var(--black1);
+  display: inline-flex;
+  height: auto !important;
+  line-height: 1.4;
+  position: static !important;
+}
+
+.apartment-modal .ant-form-item-required::before {
+  line-height: 1;
+  margin-inline-end: 4px;
+  position: static;
+}
+
+.apartment-modal .ant-form-item-control-input,
+.apartment-modal .ant-form-item-control-input-content {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.apartment-modal .ant-input,
+.apartment-modal .ant-input-number,
+.apartment-modal .ant-input-number-affix-wrapper {
+  width: 100% !important;
+  max-width: none;
+  min-height: 40px;
+  border-radius: 8px;
+}
+
+.apartment-modal .ant-form-item-extra {
+  color: #8c8c8c;
+  font-size: 14px;
+  line-height: 1.4;
+  padding-top: 6px;
+}
+
+@media (max-width: 768px) {
+  .apartment-page {
+    padding: 12px;
+  }
+
+  .apartment-page .recentCt.page2 {
+    padding: 18px 12px;
+    overflow-x: auto;
+  }
+
+  .apartment-page .cardHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .apartment-page .cardHeader h2 {
+    font-size: 24px;
+  }
+
+  .apartment-page .apartment-filters {
+    margin-bottom: 28px;
+  }
+
+  .apartment-page .apartment-filters .ant-form-item {
+    width: 100%;
+  }
+
+  .apartment-page table {
+    min-width: 680px;
+    white-space: nowrap;
+  }
+}

@@ -36,7 +36,7 @@ const getHouseholds = async (req, res) => {
       json.array.push({ 
         id: data._id, 
         head: head.name, 
-        contact: data.contact_phone, 
+        contact: head.contact_phone, 
         status: head.status, 
         floors: floors, 
         numbers: numbers

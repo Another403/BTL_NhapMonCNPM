@@ -102,7 +102,7 @@ module.exports.getRemain = async (req, res) => {
         const apartments = await apartment.find(query);
         const json = apartments.map(apt => ({
             household_id: apt.household,
-            floor: (apt.number / 100).toFixed(0),
+            floor: String(Math.floor(Number(apt.number) / 100)),
             number: apt.number
         }));
 
