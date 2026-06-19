@@ -340,6 +340,63 @@ label{
   margin-right: 16px !important;
   margin-bottom: 8px !important;
 }
+
+.change-head-modal .ant-modal-body {
+  padding-top: 8px;
+}
+
+.change-head-modal .change-head-form {
+  min-height: auto;
+  padding: 0;
+  width: 100% !important;
+}
+
+.change-head-modal .ant-form-item {
+  margin-bottom: 20px;
+}
+
+.change-head-modal .ant-form-item:last-child {
+  margin-bottom: 0;
+}
+
+.change-head-modal .ant-form-item-row {
+  display: block;
+}
+
+.change-head-modal .ant-form-item-label {
+  overflow: visible;
+  padding: 0 0 8px !important;
+  text-align: left;
+}
+
+.change-head-modal .ant-form-item-label > label {
+  height: auto;
+  line-height: 1.4;
+  position: static !important;
+}
+
+.change-head-modal .ant-form-item-control,
+.change-head-modal .ant-form-item-control-input,
+.change-head-modal .ant-form-item-control-input-content,
+.change-head-modal .ant-select {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.change-head-modal .ant-select-selector {
+  border-radius: 8px;
+  min-height: 40px;
+}
+
+.change-head-modal .ant-select-selection-item,
+.change-head-modal .ant-select-selection-placeholder {
+  padding: 0;
+}
+
+.change-head-modal .ant-modal-footer {
+  margin-top: 24px;
+}
+
 :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper table tr th.ant-table-selection-column, :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper table tr td.ant-table-selection-column, :where(.css-dev-only-do-not-override-1x0dypw).ant-table-wrapper .ant-table-selection-column {
   padding-top: 40px;
 }

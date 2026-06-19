@@ -277,6 +277,7 @@ const HouseholdInfo = () => {
     </div>
       {/* Modal đổi chủ hộ */}
       <Modal
+        className="change-head-modal"
         title="Đổi chủ hộ"
         open={changeHeadVisible}
         onOk={handleChangeHead}
@@ -284,12 +285,13 @@ const HouseholdInfo = () => {
         okText="Xác nhận"
         cancelText="Hủy"
         centered
+        width={520}
         okButtonProps={{ disabled: data.length === 0 }}
       >
         {data.length === 0 ? (
           <p style={{ color: "#999" }}>Hộ không có thành viên nào để chọn làm chủ hộ mới.</p>
         ) : (
-          <Form form={changeHeadForm} layout="vertical" style={{ marginTop: 16 }}>
+          <Form form={changeHeadForm} layout="vertical" className="change-head-form">
             <Form.Item
               label="Chủ hộ mới"
               name="newHeadId"
